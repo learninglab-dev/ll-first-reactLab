@@ -14,7 +14,7 @@ export default function FetchData() {
     fetchImgs().then(data => {
       console.log(data);
       const imgToGifs = data.map(urls => {
-        return <ImgToGif src={urls} alt={'alt'} />
+        return <ImgToGif src={urls} alt={'alt'} key={urls.img} />
       })
       setImgToGifs(imgToGifs)
     })

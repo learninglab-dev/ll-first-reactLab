@@ -12,3 +12,9 @@ The `/src` directory of this repo contains four versions of the app:
 
 ### Using the repo
 `cd` into the directory where you cloned the repo then:
+
+(*NB:* The start scripts vary for the branches of this repo. Make sure you are following the `.md` for the branch you are on.)
+
+1. Check the file `/src/index.js`. At the top there will be a statement that says `import App from ./*/App` replace the * with the folder for the version of the app you want to run, so `./example/App` for example and `./starter/App` for starter, etc.
+2. Back in terminal run `npm start`
+3. If you get an error that says react-scripts start command not found, run `npm i` and then try starting again. You may need to do this even if you've done it before because the different branches of this repo have different dependencies.
