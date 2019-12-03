@@ -12,10 +12,12 @@ The `/src` directory of this repo contains four versions of the app:
 
 ### Using the repo
 `cd` into the directory where you cloned the repo then:
+
 (*NB:* Start instructions vary by branch so make sure you are reading the `.md` of the branch you are on.)
-`npm run starter` to launch a development server for the starter app
-`npm run example` for the example
-`npm run fetch` for the mock fetch version
-`npm run single` for the single component version
+
+- `npm run starter` to launch a development server for the starter app
+- `npm run example` for the example
+- `npm run fetch` for the mock fetch version
+- `npm run single` for the single component version
 
 If you edit the code webpack will automatically refresh the page with your changes. Just make sure you edit in the folder for the version of the app you are running.
