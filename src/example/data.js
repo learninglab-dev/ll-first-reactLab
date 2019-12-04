@@ -5,7 +5,7 @@ const urls = [
   },
   {
     img: 'https://images.pexels.com/photos/127027/pexels-photo-127027.jpeg',
-    gif: 'https://media.giphy.com/media/DGgM0JTYGpGQE/giphy.gif',
+    gif: 'https://media.giphy.com/media/VS3f7UiKom7hS/giphy.gif',
   },
   {
     img: 'https://images.pexels.com/photos/1564506/pexels-photo-1564506.jpeg',
