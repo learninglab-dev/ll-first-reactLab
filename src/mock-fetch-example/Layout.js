@@ -4,7 +4,18 @@ import { Container } from 'shards-react'
 
 export default function Layout({children}) {
   return (
-    <Container style={{display: 'flex', padding: '10%', justifyContent: 'space-between', flexWrap: 'wrap', backgroundColor: '#e2e8ed', minHeight: '100vh', margin: 0, flexDirection: 'row' }}>
+    <Container style={{
+        display: 'flex',
+        padding: '10%',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        backgroundColor: '#e2e8ed',
+        minHeight: '100vh',
+        margin: 0,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        alignContent: 'flex-start'
+      }}>
       {children}
     </Container>
   )

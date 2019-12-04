@@ -11,9 +11,9 @@ function App() {
 
   if (showImg) {
     return (
-      <Container style={{display: 'flex', padding: '10%', justifyContent: 'space-between', flexWrap: 'wrap', backgroundColor: '#e2e8ed', minHeight: '100vh', margin: 0, flexDirection: 'row' }}>
-        <div style={{maxHeight: '300px'}}>
-          <button style={{border: '5px solid white', padding: 0}} onClick={() => setShowImg(false)}>
+      <Container style={{display: 'flex', padding: '10%', justifyContent: 'space-between', flexWrap: 'wrap', backgroundColor: '#e2e8ed', minHeight: '100vh', margin: 0, flexDirection: 'row', alignItems: 'flex-start', alignContent: 'flex-start' }}>
+        <div style={{maxHeight: '500px'}}>
+          <button style={{border: '5px solid white', padding: 0, marginBottom: '100px'}} onClick={() => setShowImg(false)}>
             <img src={urls.img} alt='my img' width='300px' />
           </button>
         </div>
@@ -21,9 +21,9 @@ function App() {
     )
   } else {
     return (
-      <Container style={{display: 'flex', padding: '10%', justifyContent: 'space-between', flexWrap: 'wrap', backgroundColor: '#e2e8ed', minHeight: '100vh', margin: 0, flexDirection: 'row' }}>
-        <div style={{maxHeight: '300px'}}>
-          <button style={{border: '5px solid white', padding: 0}} onClick={() => setShowImg(true)}>
+      <Container style={{display: 'flex', padding: '10%', justifyContent: 'space-between', flexWrap: 'wrap', backgroundColor: '#e2e8ed', minHeight: '100vh', margin: 0, flexDirection: 'row', alignItems: 'flex-start', alignContent: 'flex-start' }}>
+        <div style={{maxHeight: '500px'}}>
+          <button style={{border: '5px solid white', padding: 0, marginBottom: '100px'}} onClick={() => setShowImg(true)}>
             <img src={urls.gif} alt='my img' width='300px' />
           </button>
         </div>
