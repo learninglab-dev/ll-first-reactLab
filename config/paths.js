@@ -76,6 +76,8 @@ const selectEntry = () => {
       return 'fetch'
     } else if (process.argv.includes('--starter')) {
       return 'starter'
+    } else if (process.argv.includes('--live')) {
+      return 'live'
     } else {
       return 'example'
     }
@@ -89,6 +91,8 @@ const selectEntry = () => {
         return 'src/mock-fetch-example/index'
       case 'starter':
         return 'src/starter/index'
+      case 'live':
+        return 'src/live-editor/index'
       default:
         return 'src/example/index'
     }
