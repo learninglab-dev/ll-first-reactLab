@@ -6,6 +6,7 @@ import imgSources from './data'
 export default function App() {
   return (
     <Layout>
+      <h2>hello world!</h2>
     </Layout>
   )
 }
