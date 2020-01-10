@@ -2,6 +2,20 @@
 
 Welcome to the async version of reactLab #1!
 
+### Contents
+[What You'll Make](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#what-youll-make)
+[How to Navigate]()
+[Index.js: The Entry Point]()
+[JSX... What?]()
+[First Component]()
+[Composition]()
+[Props]()
+[Thinking in React]()
+[useState()]()
+[Finish the Switch]()
+[Map over Data]()
+[A Challenge]()
+
 To start, clone this repo (On an LL machine open Terminal; then enter the commands `cd development` and `git clone https://github.com/learninglab-dev/ll-first-reactLab.git`) and open the code in your favorite editor. (Again, on an LL machine, `cd ll-first-reactLab` and `atom .`)
 
 ### What You'll Make
@@ -245,3 +259,4 @@ So, thinking back to the example, we've got a grid of images. Then, when the use
 We already have (1). That's `<Layout />`. We also just wrote (2). Happily for us, it turns out that (3) is really the same as (2), since html treats static images and gifs as the same type of thing. We just pass <Img /> a gif url rather than image one as its `src` prop. So that leaves (4). We need to build our switch, and we need one more React tool to do it: State.
 
 ### useState()
+State is just what it sounds like. It's how we track what our user should be seeing at any given moment. In the case of our app, each of the slots in our grid has two states: image showing and gif showing. The collection of all of these binary states together is the state of our app, what the user sees. Fortunately for us, in our case, no component in our app needs to know the total app state.
