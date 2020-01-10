@@ -3,17 +3,17 @@
 Welcome to the async version of reactLab #1!
 
 ### Contents
-[What You'll Make](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#what-youll-make)
-[How to Navigate]()
-[Index.js: The Entry Point]()
-[JSX... What?]()
-[First Component]()
-[Composition]()
-[Props]()
-[Thinking in React]()
-[useState()]()
-[Finish the Switch]()
-[Map over Data]()
+[What You'll Make](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#what-youll-make)\
+[How to Navigate]()\
+[Index.js: The Entry Point]()\
+[JSX... What?]()\
+[First Component]()\
+[Composition]()\
+[Props]()\
+[Thinking in React]()\
+[useState()]()\
+[Finish the Switch]()\
+[Map over Data]()\
 [A Challenge]()
 
 To start, clone this repo (On an LL machine open Terminal; then enter the commands `cd development` and `git clone https://github.com/learninglab-dev/ll-first-reactLab.git`) and open the code in your favorite editor. (Again, on an LL machine, `cd ll-first-reactLab` and `atom .`)
