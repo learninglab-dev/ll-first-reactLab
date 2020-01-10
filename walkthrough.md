@@ -16,10 +16,12 @@ Okay, let's get into the code! If you jump over to Atom (or your other text edit
 
 Start by opening up the `public` folder. The essential file in here is `index.html`. If you open it up, you'll see that it's pretty, well, uninteresting. The html file is essentially a stem. This is because React is going to generate our html for us. When you build a React app, you write javascript that describes the DOM, that is, what the page should look like, for every possible state of your app. React uses a tool called Webpack to package all your scripts together and send them to the browser in a bundle. When a user interacts with your app, React runs your code and renders the appropriate html. The client never needs fetch html from your server after the initial download.
 
-Back to our file structure: Now open `src`. All the code we'll write needs to be in this folder. Otherwise, Webpack won't see it to package it into our app. This app looks a little funny because I've made two copies of it for you. In the folder `01_example` is the completed code; the code you're currently running. In the folder, `02_starter` is a template; this is where you'll write your code. 
+Back to our file structure: Now open `src`. All the code we'll write needs to be in this folder. Otherwise, Webpack won't see it to package it into our app. This app looks a little funny because I've made two copies of it for you. In the folder `01_example` is the completed code; the code you're currently running. In the folder, `02_starter` is a template; this is where you'll write your code.
 
 ### Index.js: The Entry Point
-Every react app has an entry point... To get started, open up `index.js`. At the top you'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'.` This switches from running the example app to the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and hit `npm start` again to get the blank page.)
+Every react app has an entry point. It's typically in a file called `Index.js`, though you can name this file whatever you like. This file is the place where we connect react to the output API of our app. In this case, since we're making an app for the web, this is where React connect to the browser's DOM.
+
+To get started, open up `index.js`. At the top you'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'`. This switches from running the example app to the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and hit `npm start` again to get the blank page.)
 
 So what's this index file doing? Because it's so short, let's walk through it line by line:
 
@@ -89,6 +91,157 @@ export default function Img() {
 Be sure to add in a real image url or you won't see anything. Save and hop over to your browser. But wait! Nothing's changed...
 
 ### Composition
+That's because we haven't used our image component anywhere. Remember, in `Index.js` we're rendering `App`, but if you look back at the code in `App.js`, it's clear that `App` doesn't know anything about `Img`.
 
-Now, we'll start with a very important react principle, composition...
-`
+A central react principle is the idea of composition. That is, we build more complex UI by combining together individual components rather than sharing code between them. So, we're going to call `Img` within `App`. Start by importing it in `App.js` like so:
+```
+import React from 'react'
+import Layout from './Layout'
+import Img from './Img'
+import imgSources from './data'
+
+```
+Next we'll render it by adding it to our JSX. The complete `App.js` file should now look like this:
+```
+import React from 'react'
+import Layout from './Layout'
+import Img from './Img'
+import imgSources from './data'
+
+
+//the top-level component for our app. I've added some basic styling and a flexbox layout for you so your gifs make a nice grid :)
+export default function App() {
+  return (
+    <Layout>
+      <Img />
+    </Layout>
+  )
+}
+```
+Now, if you flip over to your browser, you should see your image. Great!
+
+Just to get a better sense of how composition works, let's drop a few more copies of `Img` into `App`:
+```
+return (
+  <Layout>
+    <Img />
+    <Img />
+    <Img />
+  </Layout>
+)
+```
+Now you should see a row of images in the browser. By using a modular component and composition, we were able to render multiple elements on our page without rewriting any code. Nice. Note that we're also using composition with `<Layout />` here too. It's a component I've written for you that lays your images out in a grid. It's code is over in `Layout.js` if you want to look at it. But, of course, composition isn't much good if we can only show multiple copies of the same image. We need to be able to customize each instance of our component. Enter `props`.
+
+### Props
+`props`, short for properties, are the data we pass to a component when we render it. So, if we wanted our images to be different sizes, for example, we could pass a `width` prop, like so:
+```
+return (
+  <Layout>
+    <Img width='300px'/>
+    <Img width='200px'/>
+    <Img width='500px'/>
+  </Layout>
+)
+```
+Some things to note here: First, I've given my prop a name, 'width'. This is how we'll access the value over in `Img`. Every prop needs a name. Second, I've added the `width` prop to every instance of `Img`. Otherwise, we'll get undefined, which can lead to problems. In this case, an image without a width won't appear.
+
+Okay, so we've passed `width` to `Img`. How do we access it? First, we have to add `props` as argument to `Img()`, like so:
+```
+export default function Img(props) {
+  return (
+    <div style={{maxHeight: '500px'}}>
+        <img src=[YOUR IMAGE URL] alt='my img' width='300px' />
+    </div>
+  )
+}
+```
+Then we can replace the hardcoded value of width with `props.width`:
+```
+export default function Img(props) {
+  return (
+    <div style={{maxHeight: '500px'}}>
+        <img src=[YOUR IMAGE URL] alt='my img' width={props.width} />
+    </div>
+  )
+}
+```
+As a quick note, notice that we've put `props.width` in curly braces `{}`. Any javascript expression inside JSX needs to be in curly braces. But then, where did `props.width` come from?
+
+Basically, React takes the names and values of all the props we pass to a component and combines them into a single object as key-value pairs. So, the props object we passed to `Img` actually looks like this:
+```
+props = {
+  width: '300px'
+}
+```
+If we had passed more props, say,`<Img width='300px' border='5px solid blue' random='unicorn'/>`, we'd get a props object like so:
+```
+props = {
+  width: '300px',
+  border: '5px solid blue',
+  random: 'unicorn'
+}
+```
+If we don't want to call `props.[propName]` everytime, we can use object destructuring to make things neater:
+```
+export default function Img(props) {
+  const { width, border, random } = props
+  return (
+    <div style={{maxHeight: '500px'}}>
+        <img src=[YOUR IMAGE URL] alt='my img' width={width} />
+    </div>
+  )
+}
+```
+Or simply:
+```
+export default function Img({ width, border, random }) {
+  return (
+    <div style={{maxHeight: '500px'}}>
+        <img src=[YOUR IMAGE URL] alt='my img' width={width} />
+    </div>
+  )
+}
+```
+We've been playing with a width prop for simplicity, but the prop we actually want to vary between our images is the source url. Let's go back and finish up our grid of images. First we'll modify `App` like so:
+```
+import React from 'react'
+import Layout from './Layout'
+import Img from './Img'
+import imgSources from './data'
+
+
+//the top-level component for our app. I've added some basic styling and a flexbox layout for you so your gifs make a nice grid :)
+export default function App() {
+  return (
+    <Layout>
+      <Img src=[YOUR IMAGE URL]/>
+      <Img src=[YOUR OTHER IMAGE URL]/>
+      <Img src=[YOUR OTHER IMAGE URL]/>
+    </Layout>
+  )
+}
+```
+Then we'll pass `src` to `Img`:
+```
+export default function Img({ src }) {
+  return (
+    <div style={{maxHeight: '500px'}}>
+        <img src={src} alt='my img' width='300px' />
+    </div>
+  )
+}
+```
+And now, finally, if you look over in your browser, you should see a grid of your images.
+
+### Thinking in React
+Before we go any further with writing code, it'll be useful to take a few minutes to think about what it is we're building and to structure it in terms of React components. Because we're building a React app, we need to make sure our code handles every view in our app.
+
+So, thinking back to the example, we've got a grid of images. Then, when the user clicks on an image, that one turns into a gif. Same with the next one, etc. And when the user clicks on a gif, it swaps back into an image. This suggests that we need four things:
+1. The grid
+2. A component for showing images
+3. A component for showing gifs
+4. A switch that keeps track of which one should be shown for each slot in the grid
+
+We already have (1). That's `<Layout />`. We also just wrote (2). Happily for us, it turns out that (3) is really the same as (2), since html treats static images and gifs as the same type of thing. We just pass <Img /> a gif url rather than image one as its `src` prop. So that leaves (4). We need to build our switch, and we need one more React tool to do it: State.
+
+### useState()
