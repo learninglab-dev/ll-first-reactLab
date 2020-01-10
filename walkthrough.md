@@ -259,4 +259,87 @@ So, thinking back to the example, we've got a grid of images. Then, when the use
 We already have (1). That's `<Layout />`. We also just wrote (2). Happily for us, it turns out that (3) is really the same as (2), since html treats static images and gifs as the same type of thing. We just pass <Img /> a gif url rather than image one as its `src` prop. So that leaves (4). We need to build our switch, and we need one more React tool to do it: State.
 
 ### useState()
-State is just what it sounds like. It's how we track what our user should be seeing at any given moment. In the case of our app, each of the slots in our grid has two states: image showing and gif showing. The collection of all of these binary states together is the state of our app, what the user sees. Fortunately for us, in our case, no component in our app needs to know the total app state.
+State is just what it sounds like. It's how we track what our user should be seeing at any given moment. In the case of our app, each of the slots in our grid has two states: image showing and gif showing. The collection of all of these binary states together is the state of our app, what the user sees. To simplify things in this first tutorial, our app is such that no component needs to know the total app state. As long as each toggle "knows" what state it's in, then all the toggles will render correctly.
+
+So how does state work? We need a variable to contain our state. If you think about what you know about how variable scopes work, you might come to the conclusion that we can't define this variable inside our components. Afterall, our components are just functions; each time a function runs the variables declared within its scope are reset. So we need something more global, something that will persist across component renders.
+
+To create that variable, we'll use what's called a `hook`. Hooks in general are just functions that allow us to grab values from other code modules. We're "hooking" into those other modules. The hook we'll use is helpfully named `useState()`. It returns an array that contains two things: (1) our state variable, the state value and (2) a function for updating that value.
+
+As a schematic, we're going to have something like this in our switch component. Note this won't run as is. We'll get to the final code in the next section:
+```
+function Switch(props) {
+  const [state, setState] = useState('image')
+
+  if (state === 'image') {
+     //set src to image url, perhaps props.image
+  } else {
+    //set src to gif url, perhaps props.gif
+  }
+
+  return (
+    <Img src={src} onClick={setState} />
+    )
+}
+```
+We call `useState()` and it returns that array of two things. We're again using destructuring to get our values out. `state` gets the first value in the array, the state value itself. `setState` gets the second value, the update function. You'll often see state variables and their update functions named as pairs with the variable name and then set preceeding the variable name, e.g. `myStateVariable` and `setMyStateVariable`, but you can name these as you like. The value we pass to `useState`, in this case `image`, is the initial state. If you pass nothing, the state is initially undefined.
+
+When our component runs we check the value of `state` and set `src` to the corresponding url. We'll also pass `setState` to image as a prop because we're going to need to call that function to change the state when someone clicks on the image. But that's getting a bit ahead. For now, let's open `Switch.js` and complete the code for our switch component.
+
+### Finish the Switch
+As usual, we're going to start our component by importing React:
+```
+import React from 'react'
+```
+We also need import `useState`. It's in the core React library too:
+```
+import React, { useState } from 'react'
+```
+Now we'll start to write our switch component and add in `useState`:
+```
+export default function Switch(props){
+  const { img, gif }
+  const [showImg, setShowImg] = useState(true)
+}
+```
+Here we're making our state variable a boolean. Since we need a variable with two possible values, a true-false value will be the simplest. We'll say if `showImg` is true, we'll show the image, and if it's false we'll show the gif.
+
+The next step is to check the value of `showImg` and return the appropriate JSX. Here are two ways you might finish up `Switch`. First, you might do what's called conditional rendering and wrap your return statement in an `if-else`:
+```
+export default function Switch(props) {
+  const { img, gif, alt } = props
+  const [showImg, setShowImg] = useState(true)
+  if (showImg) {
+    return <Img src={img} alt={alt} onClick={() => setShowImg(false)}/>
+  } else {
+    return <Img src={gif} alt={alt} onClick={() => setShowImg(true)}/>
+  }
+}
+```
+Here we check the value of `showImg` and then return `<Img/>` pre-filled with the right props and new value (true or false) for our state when the user clicks.
+
+But we could also just make the value of src conditional like so:
+```
+export default function Switch(props) {
+  const { img, gif, alt } = props
+  const [showImg, setShowImg] = useState(true)
+  const src = showImg ? img : gif
+  return <Img src={src} alt={alt} onClick={() => setShowImg(!showImg)}/>
+}
+```
+It's a little tighter, and since we're using the boolean, it's easy to setup the onClick for both cases. If your new state has more options or if you're returning different components based on state, you'll want to use conditional rendering.
+
+We're now ready to put our `Switch` to work. Jump back over to `App.js`, and we'll replace `<Img/>` with `<Switch/>` like so:
+```
+import React from 'react'
+import Layout from './Layout'
+import Switch from './Switch'
+
+export default function App() {
+  return (
+    <Layout>
+      <Switch img=[YOUR IMAGE URL] gif=[YOUR GIF URL] alt=[ALT TEXT] />
+    </Layout>
+  )
+}
+```
+Don't forget to swap out the imports at the top of the file.
