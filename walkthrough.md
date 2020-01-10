@@ -19,11 +19,9 @@ Start by opening up the `public` folder. The essential file in here is `index.ht
 Back to our file structure: Now open `src`. All the code we'll write needs to be in this folder. Otherwise, Webpack won't see it to package it into our app. This app looks a little funny because I've made two copies of it for you. In the folder `01_example` is the completed code; the code you're currently running. In the folder, `02_starter` is a template; this is where you'll write your code.
 
 ### Index.js: The Entry Point
-Every react app has an entry point. It's typically in a file called `Index.js`, though you can name this file whatever you like. This file is the place where we connect react to the output API of our app. In this case, since we're making an app for the web, this is where React connect to the browser's DOM.
+Every react app has an entry point. It's typically in a file called `Index.js`, though you can name this file whatever you like. This file is the place where we connect React to the output API of our app. In this case, since we're making an app for the web, this is where React connects to the browser's DOM.
 
-To get started, open up `index.js`. At the top you'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'`. This switches from running the example app to the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and hit `npm start` again to get the blank page.)
-
-So what's this index file doing? Because it's so short, let's walk through it line by line:
+To see how, open up `index.js`. Because it's so short, let's walk through it line by line:
 
 ```
 import React from 'react'
@@ -39,7 +37,9 @@ Next, we're importing our own code. (By the way, `import` is pretty much the es6
 ```
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
-Finally, we call the `ReactDOM.render()` function. This function tells react to go to work. React will start from the component we feed it, in this case App, and render that component and all of its children into html. It will "insert" this generated html into the dom element we've identified, which is `root`. If you remember from our quick look at `index.html`, root is just a solo `<div>` inside `<body>`, so the html react generates will become the body of our page.  
+Finally, we call the `ReactDOM.render()` function. This function tells react to go to work. React will start from the component we feed it, in this case App, and render that component and all of its children into html. It will "insert" this generated html into the DOM element we've identified, which is `root`. If you remember from our quick look at `index.html`, root is just a solo `<div>` inside `<body>`, so the html React generates will become the body of our page.
+
+We're finally ready to write some code. To get started, look back at the top of `Index.js`. You'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'`. This switches from running the example app to the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and hit `npm start` again to get the blank page.)  
 
 ### JSX... What?
 One thing you'll notice when working with a react app is that it automatically updates what you see in the browser every time you save your code. So let's do it! Open the folder `02_starter` and then the file `App.js`.
