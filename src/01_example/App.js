@@ -1,12 +1,12 @@
 import React from 'react'
 import Layout from './Layout'
-import ImgToGif from './ImgToGif'
+import Switch from './Switch'
 import imgSources from './data'
 
 
 export default function App() {
-  const imgToGifs = imgSources.map(urls => {
-    return <ImgToGif src={urls} alt={'alt'} key={urls.img} />
+  const imgToGifs = imgSources.map((urls, i) => {
+    return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} />
   })
   return (
     <Layout>

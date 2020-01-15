@@ -18,7 +18,7 @@ This walkthrough is intended to give you most of the content, both step by step 
 [Map over Data](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#map-over-data)\
 [A Challenge](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#a-challenge)
 
-To start, clone this repo (On an LL machine open Terminal; then enter the commands `cd development` and `git clone https://github.com/learninglab-dev/ll-first-reactLab.git`) and open the code in your favorite editor. (Again, on an LL machine, `cd ll-first-reactLab` and `atom .`)
+:collision: To start, clone this repo (On an LL machine open Terminal; then enter the commands `cd development` and `git clone https://github.com/learninglab-dev/ll-first-reactLab.git`) and open the code in your favorite editor. (Again, on an LL machine, `cd ll-first-reactLab` and `atom .`)
 
 ### What You'll Make
 Before we take a look at the code, let's first take a look at what we'll make. Over in Terminal, enter `npm i` to install dependencies and then when that finishes `npm start`. You should see a message that says "Starting the development server..." and React should automatically open `localhost:3000` in your browser. (Btw, if you've never started a React app in development mode, now you know how!)
@@ -58,9 +58,9 @@ Finally, we call the `ReactDOM.render()` function. This function tells react to 
 :collision: We're finally ready to write some code. To get started, look back at the top of `Index.js`. You'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'`. This switches from running the example app to the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and hit `npm start` again to get the blank page.)
 
 ### JSX... What?
-One thing you'll notice when working with a react app is that it automatically updates what you see in the browser every time you save your code. So let's do it! Open the folder `02_starter` and then the file `App.js`.
+One thing you'll notice when working with a react app is that it automatically updates what you see in the browser every time you save your code. So let's do it! :collision: Open the folder `02_starter` and then the file `App.js`.
 
-As we said, `App` is our the top-level component. We'll get to what's going on in this file in a bit, but first, let's make a change so we can see a change in the browser. Update the `return` statement so it looks like this. You can put any text you like; "hello world!" is just tradition:
+:collision: As we said, `App` is our the top-level component. We'll get to what's going on in this file in a bit, but first, let's make a change so we can see a change in the browser. Update the `return` statement so it looks like this. You can put any text you like; "hello world!" is just tradition:
 
 ```js
 return (
@@ -80,13 +80,13 @@ React.createElement('h2', null, 'hello world!')
 This is, afterall, what our JSX gets compiled to before react generates the actual html for our app.
 
 ### First Component
-Okay, we're finally ready to write our first component. Let's jump over to the file `Img.js`. As we said awhile back, every file that contains a react component begins by importing react, so add this first line to your file:
+:collision: Okay, we're finally ready to write our first component. Let's jump over to the file `Img.js`. As we said awhile back, every file that contains a react component begins by importing react, so add this first line to your file:
 ```js
 import React from 'react'
 ```
 Now we need to create our component. But what's a component? It's just a function, a function that returns JSX (or a child component(s) which somewhere down the tree return JSX) rather than some other type of value. That is, a component is a function that returns an element of our DOM, or technically a description of it.
 
-So we'll start by writing a function:
+:collision: So we'll start by writing a function:
 ```js
 export default function Img() {
 
@@ -94,7 +94,7 @@ export default function Img() {
 ```
 Two quick things to note here: (1) The function declaration is preceded by the `export` keyword. This is the es6 version of `module.exports`. (2) The function/component name is capitalized. This is important. React will only treat a function as a react component if the name is capitalized in the declaration.
 
-Next we said that components are functions that return JSX. So, let's do that Add a return statement to `Img()` as follows:
+:collision: Next we said that components are functions that return JSX. So, let's do that Add a return statement to `Img()` as follows:
 ```js
 export default function Img() {
   return (
@@ -109,7 +109,7 @@ Be sure to add in a real image url or you won't see anything. Save and hop over 
 ### Composition
 That's because we haven't used our image component anywhere. Remember, in `Index.js` we're rendering `App`, but if you look back at the code in `App.js`, it's clear that `App` doesn't know anything about `Img`.
 
-A central react principle is the idea of composition. That is, we build more complex UI by combining together individual components rather than sharing code between them. So, we're going to call `Img` within `App`. Start by importing it in `App.js` like so:
+:collision: A central react principle is the idea of composition. That is, we build more complex UI by combining together individual components rather than sharing code between them. So, we're going to call `Img` within `App`. Start by importing it in `App.js` like so:
 ```js
 import React from 'react'
 import Layout from './Layout'
@@ -117,7 +117,7 @@ import Img from './Img'
 import imgSources from './data'
 
 ```
-Next we'll render it by adding it to our JSX. The complete `App.js` file should now look like this:
+:collision: Next we'll render it by adding it to our JSX. The complete `App.js` file should now look like this:
 ```js
 import React from 'react'
 import Layout from './Layout'
@@ -136,7 +136,7 @@ export default function App() {
 ```
 Now, if you flip over to your browser, you should see your image. Great!
 
-Just to get a better sense of how composition works, let's drop a few more copies of `Img` into `App`:
+:collision: Just to get a better sense of how composition works, let's drop a few more copies of `Img` into `App`:
 ```js
 return (
   <Layout>
@@ -218,7 +218,7 @@ export default function Img({ width, border, random }) {
   )
 }
 ```
-We've been playing with a width prop for simplicity, but the prop we actually want to vary between our images is the source url. Let's go back and finish up our grid of images. First we'll modify `App` like so:
+We've been playing with a width prop for simplicity, but the prop we actually want to vary between our images is the source url. Let's go back and finish up our grid of images. :collision: First we'll modify `App` like so:
 ```js
 import React from 'react'
 import Layout from './Layout'
@@ -237,7 +237,7 @@ export default function App() {
   )
 }
 ```
-Then we'll pass `src` to `Img`:
+:collision: Then we'll pass `src` to `Img`:
 ```js
 export default function Img({ src }) {
   return (
@@ -288,15 +288,15 @@ We call `useState()` and it returns that array of two things. We're again using 
 When our component runs we check the value of `state` and set `src` to the corresponding url. We'll also pass `setState` to image as a prop because we're going to need to call that function to change the state when someone clicks on the image. But that's getting a bit ahead. For now, let's open `Switch.js` and complete the code for our switch component.
 
 ### Finish the Switch
-As usual, we're going to start our component by importing React:
+:collision: As usual, we're going to start our component by importing React:
 ```js
 import React from 'react'
 ```
-We also need import `useState`. It's in the core React library too:
+:collision: We also need import `useState`. It's in the core React library too:
 ```js
 import React, { useState } from 'react'
 ```
-Now we'll start to write our switch component and add in `useState`:
+:collision: Now we'll start to write our switch component and add in `useState`:
 ```js
 export default function Switch(props){
   const { img, gif }
@@ -319,7 +319,7 @@ export default function Switch(props) {
 ```
 Here we check the value of `showImg` and then return `<Img/>` pre-filled with the right props and new value (true or false) for our state when the user clicks.
 
-But we could also just make the value of src conditional like so:
+:collision: But we could also just make the value of src conditional like so:
 ```js
 export default function Switch(props) {
   const { img, gif, alt } = props
@@ -330,7 +330,7 @@ export default function Switch(props) {
 ```
 It's a little tighter, and since we're using the boolean, it's easy to setup the `onClick` for both cases. If your new state has more options or if you're returning different components based on state, you'll want to use conditional rendering.
 
-We're now ready to put our `Switch` to work. Jump back over to `App.js`, and we'll replace `<Img/>` with `<Switch/>` like so:
+:collision: We're now ready to put our `Switch` to work. Jump back over to `App.js`, and we'll replace `<Img/>` with `<Switch/>` like so:
 ```js
 import React from 'react'
 import Layout from './Layout'
@@ -346,7 +346,7 @@ export default function App() {
 ```
 Don't forget to swap out the imports at the top of the file.
 
-Save and check over in your browser. Once again, nothing changed. Or if something did we went backward from the grid of images to a single image. That's because we're not actually triggering that `onClick` function anywhere. So let's go back into `Img.js` and make our image a button:
+Save and check over in your browser. Once again, nothing changed. Or if something did we went backward from the grid of images to a single image. That's because we're not actually triggering that `onClick` function anywhere. :collision: So let's go back into `Img.js` and make our image a button:
 ```js
 import React from 'react'
 import Button from './Button'
@@ -370,15 +370,15 @@ Finally, to complete our grid. We'll learn/review an array method that you'll us
 
 Notice that we have a similar structure here. We want to take some data, in our case an array of image-gif url pairs, and map over it to return a `<Switch/>` for each pair. So over in `App.js`, let's add the following:
 
-First, we'll import our data from the file rather than hardcoding it:
+:collision: First, we'll import our data from the file rather than hardcoding it:
 ```js
 import imgSources from './data'
 ```
-Then, we'll update `App` to map over our data:
+:collision: Then, we'll update `App` to map over our data:
 ```js
 export default function App() {
   const imgToGifs = imgSources.map((urls, i) => {
-    return <Switch img={img} gif={gif} alt={i} key={i} />
+    return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} />
   })
   return (
     <Layout>
