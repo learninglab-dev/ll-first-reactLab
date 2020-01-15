@@ -55,7 +55,11 @@ ReactDOM.render(<App />, document.getElementById('root'))
 ```
 Finally, we call the `ReactDOM.render()` function. This function tells react to go to work. React will start from the component we feed it, in this case App, and render that component and all of its children into html. It will "insert" this generated html into the DOM element we've identified, which is `root`. If you remember from our quick look at `index.html`, root is just a solo `<div>` inside `<body>`, so the html React generates will become the body of our page.
 
-<span style="color: green">We're finally ready to write some code. To get started, look back at the top of `Index.js`. You'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'`. This switches from running the example app to the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and hit `npm start` again to get the blank page.) </span>
+<style
+  type="text/css">
+p {color:green;}
+We're finally ready to write some code. To get started, look back at the top of `Index.js`. You'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'`. This switches from running the example app to the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and hit `npm start` again to get the blank page.)
+</style>
 
 ### JSX... What?
 One thing you'll notice when working with a react app is that it automatically updates what you see in the browser every time you save your code. So let's do it! Open the folder `02_starter` and then the file `App.js`.
@@ -110,7 +114,7 @@ Be sure to add in a real image url or you won't see anything. Save and hop over 
 That's because we haven't used our image component anywhere. Remember, in `Index.js` we're rendering `App`, but if you look back at the code in `App.js`, it's clear that `App` doesn't know anything about `Img`.
 
 A central react principle is the idea of composition. That is, we build more complex UI by combining together individual components rather than sharing code between them. So, we're going to call `Img` within `App`. Start by importing it in `App.js` like so:
-```
+```javascript
 import React from 'react'
 import Layout from './Layout'
 import Img from './Img'
@@ -118,7 +122,7 @@ import imgSources from './data'
 
 ```
 Next we'll render it by adding it to our JSX. The complete `App.js` file should now look like this:
-```
+```javascript
 import React from 'react'
 import Layout from './Layout'
 import Img from './Img'
