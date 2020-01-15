@@ -2,19 +2,21 @@
 
 Welcome to the async version of reactLab #1!
 
+This walkthrough is intended to give you most of the content, both step by step instructions and conceptual knowledge, of our first live React tutorial. If you want to skip all the conceptual stuff and just build the app, all the actual todos are marked with green text below.
+
 ### Contents
 [What You'll Make](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#what-youll-make)\
-[How to Navigate]()\
-[Index.js: The Entry Point]()\
-[JSX... What?]()\
-[First Component]()\
-[Composition]()\
-[Props]()\
-[Thinking in React]()\
-[useState()]()\
-[Finish the Switch]()\
-[Map over Data]()\
-[A Challenge]()
+[How to Navigate](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#how-to-navigate)\
+[Index.js: The Entry Point](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#the-entry-point)\
+[JSX... What?](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#jsx-what)\
+[First Component](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#first-component)\
+[Composition](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#composition)\
+[Props](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#props)\
+[Thinking in React](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#thinking-in-react)\
+[useState()](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#usestate)\
+[Finish the Switch](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#finish-the-switch)\
+[Map over Data](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#map-over-data)\
+[A Challenge](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#a-challenge)
 
 To start, clone this repo (On an LL machine open Terminal; then enter the commands `cd development` and `git clone https://github.com/learninglab-dev/ll-first-reactLab.git`) and open the code in your favorite editor. (Again, on an LL machine, `cd ll-first-reactLab` and `atom .`)
 
@@ -53,7 +55,7 @@ ReactDOM.render(<App />, document.getElementById('root'))
 ```
 Finally, we call the `ReactDOM.render()` function. This function tells react to go to work. React will start from the component we feed it, in this case App, and render that component and all of its children into html. It will "insert" this generated html into the DOM element we've identified, which is `root`. If you remember from our quick look at `index.html`, root is just a solo `<div>` inside `<body>`, so the html React generates will become the body of our page.
 
-We're finally ready to write some code. To get started, look back at the top of `Index.js`. You'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'`. This switches from running the example app to the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and hit `npm start` again to get the blank page.)  
+<span style="color: green">We're finally ready to write some code. To get started, look back at the top of `Index.js`. You'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'`. This switches from running the example app to the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and hit `npm start` again to get the blank page.) </span>
 
 ### JSX... What?
 One thing you'll notice when working with a react app is that it automatically updates what you see in the browser every time you save your code. So let's do it! Open the folder `02_starter` and then the file `App.js`.
@@ -326,7 +328,7 @@ export default function Switch(props) {
   return <Img src={src} alt={alt} onClick={() => setShowImg(!showImg)}/>
 }
 ```
-It's a little tighter, and since we're using the boolean, it's easy to setup the onClick for both cases. If your new state has more options or if you're returning different components based on state, you'll want to use conditional rendering.
+It's a little tighter, and since we're using the boolean, it's easy to setup the `onClick` for both cases. If your new state has more options or if you're returning different components based on state, you'll want to use conditional rendering.
 
 We're now ready to put our `Switch` to work. Jump back over to `App.js`, and we'll replace `<Img/>` with `<Switch/>` like so:
 ```
@@ -343,3 +345,28 @@ export default function App() {
 }
 ```
 Don't forget to swap out the imports at the top of the file.
+
+Save and check over in your browser. Once again, nothing changed. Or if something did we went backward from the grid of images to a single image. That's because we're not actually triggering that `onClick` function anywhere. So let's go back into `Img.js` and make our image a button:
+```
+import React from 'react'
+import Button from './Button'
+
+export default function Img({ src, onClick }) {
+  return (
+    <div style={{maxHeight: '500px'}}>
+      <Button onClick={onClick}>
+        <img src={src} alt='my img' width='300px' />
+      </Button>
+    </div>
+  )
+}
+```
+`<Button>` is another prefab component like `<Layout>` where I've just given you some basic styling to make things look clean. It's code is over in `Button.js` if you want to take a look.
+
+Now, if you save and hop over to your browser, you should have an image that toggles between the image and a gif when you click on it. Woo!
+
+### Map Over Data
+Finally, to complete our grid. We'll learn/review an array method that you'll use a lot in React-- `array.map()`.
+
+### A Challenge
+Now that you've completed the tutorial, try to create a secret message that pops up when the user has a particular number of gifs showing. To do this, you'll need a state variable to track how many gifs are showing and one more hook called `useEffect()`. Effects are just functions that trigger under certain conditions. Those conditions are defined by their dependencies.
