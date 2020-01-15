@@ -2,7 +2,7 @@
 
 Welcome to the async version of reactLab #1!
 
-This walkthrough is intended to give you most of the content, both step by step instructions and conceptual knowledge, of our first live React tutorial. If you want to skip all the conceptual stuff and just build the app, all the actual todos are marked with green text below.
+This walkthrough is intended to give you most of the content, both step by step instructions and conceptual knowledge, of our first live React tutorial. If you want to skip all the conceptual stuff and just build the app, all the actual todos are marked with this :collision: emoji.
 
 ### Contents
 [What You'll Make](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#what-youll-make)\
@@ -39,34 +39,30 @@ Every react app has an entry point. It's typically in a file called `Index.js`, 
 
 To see how, open up `index.js`. Because it's so short, let's walk through it line by line:
 
-```
+```js
 import React from 'react'
 import ReactDOM from 'react-dom'
 ```
 Here we're simply importing React itself. That first line needs to be at the top of every javascript file you write that's a react component, so you'll write it over and over. It's the core React library. ReactDOM, on the other hand, we import only once here in `index.js`. This library basically tells React to output html and not native elements or something else. We're creating an app to be viewed in a browser.
 
-```
+```js
 import App from './01_example/App'
 ```
 Next, we're importing our own code. (By the way, `import` is pretty much the es6 version of `require`. I'll leave it to you to google the differences if you want.) In react, components are organized in a tree. There are parent components and children. Here, as in most react apps you'll build, `App` is the top of our tree. It's the top-level parent.
 
-```
+```js
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
 Finally, we call the `ReactDOM.render()` function. This function tells react to go to work. React will start from the component we feed it, in this case App, and render that component and all of its children into html. It will "insert" this generated html into the DOM element we've identified, which is `root`. If you remember from our quick look at `index.html`, root is just a solo `<div>` inside `<body>`, so the html React generates will become the body of our page.
 
-<style
-  type="text/css">
-p {color:green;}
-We're finally ready to write some code. To get started, look back at the top of `Index.js`. You'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'`. This switches from running the example app to the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and hit `npm start` again to get the blank page.)
-</style>
+:collision: We're finally ready to write some code. To get started, look back at the top of `Index.js`. You'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'`. This switches from running the example app to the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and hit `npm start` again to get the blank page.)
 
 ### JSX... What?
 One thing you'll notice when working with a react app is that it automatically updates what you see in the browser every time you save your code. So let's do it! Open the folder `02_starter` and then the file `App.js`.
 
 As we said, `App` is our the top-level component. We'll get to what's going on in this file in a bit, but first, let's make a change so we can see a change in the browser. Update the `return` statement so it looks like this. You can put any text you like; "hello world!" is just tradition:
 
-```
+```js
 return (
   <Layout>
     <h2>hello world!</h2>
@@ -78,20 +74,20 @@ If you check over in your browser, you should see your message. Okay, so that wa
 There are some differences, however. For example, all attributes you put inside an opening tag are camelCased, e.g. `onClick` in JSX rather than `onclick` in html. In general, I'd recommend that you try the html you know; if the code doesn't work as expected, that's a good moment to google jsx-html differences.
 
 Just to be clear, JSX is NOT html. We could have used [just javascript](https://reactjs.org/docs/react-without-jsx.html) and instead written:
-```
+```js
 React.createElement('h2', null, 'hello world!')
 ```
 This is, afterall, what our JSX gets compiled to before react generates the actual html for our app.
 
 ### First Component
 Okay, we're finally ready to write our first component. Let's jump over to the file `Img.js`. As we said awhile back, every file that contains a react component begins by importing react, so add this first line to your file:
-```
+```js
 import React from 'react'
 ```
 Now we need to create our component. But what's a component? It's just a function, a function that returns JSX (or a child component(s) which somewhere down the tree return JSX) rather than some other type of value. That is, a component is a function that returns an element of our DOM, or technically a description of it.
 
 So we'll start by writing a function:
-```
+```js
 export default function Img() {
 
 }
@@ -99,7 +95,7 @@ export default function Img() {
 Two quick things to note here: (1) The function declaration is preceded by the `export` keyword. This is the es6 version of `module.exports`. (2) The function/component name is capitalized. This is important. React will only treat a function as a react component if the name is capitalized in the declaration.
 
 Next we said that components are functions that return JSX. So, let's do that Add a return statement to `Img()` as follows:
-```
+```js
 export default function Img() {
   return (
     <div style={{maxHeight: '500px'}}>
@@ -114,7 +110,7 @@ Be sure to add in a real image url or you won't see anything. Save and hop over 
 That's because we haven't used our image component anywhere. Remember, in `Index.js` we're rendering `App`, but if you look back at the code in `App.js`, it's clear that `App` doesn't know anything about `Img`.
 
 A central react principle is the idea of composition. That is, we build more complex UI by combining together individual components rather than sharing code between them. So, we're going to call `Img` within `App`. Start by importing it in `App.js` like so:
-```javascript
+```js
 import React from 'react'
 import Layout from './Layout'
 import Img from './Img'
@@ -122,7 +118,7 @@ import imgSources from './data'
 
 ```
 Next we'll render it by adding it to our JSX. The complete `App.js` file should now look like this:
-```javascript
+```js
 import React from 'react'
 import Layout from './Layout'
 import Img from './Img'
@@ -141,7 +137,7 @@ export default function App() {
 Now, if you flip over to your browser, you should see your image. Great!
 
 Just to get a better sense of how composition works, let's drop a few more copies of `Img` into `App`:
-```
+```js
 return (
   <Layout>
     <Img />
@@ -154,7 +150,7 @@ Now you should see a row of images in the browser. By using a modular component 
 
 ### Props
 `props`, short for properties, are the data we pass to a component when we render it. So, if we wanted our images to be different sizes, for example, we could pass a `width` prop, like so:
-```
+```js
 return (
   <Layout>
     <Img width='300px'/>
@@ -166,7 +162,7 @@ return (
 Some things to note here: First, I've given my prop a name, 'width'. This is how we'll access the value over in `Img`. Every prop needs a name. Second, I've added the `width` prop to every instance of `Img`. Otherwise, we'll get undefined, which can lead to problems. In this case, an image without a width won't appear.
 
 Okay, so we've passed `width` to `Img`. How do we access it? First, we have to add `props` as argument to `Img()`, like so:
-```
+```js
 export default function Img(props) {
   return (
     <div style={{maxHeight: '500px'}}>
@@ -176,7 +172,7 @@ export default function Img(props) {
 }
 ```
 Then we can replace the hardcoded value of width with `props.width`:
-```
+```js
 export default function Img(props) {
   return (
     <div style={{maxHeight: '500px'}}>
@@ -188,13 +184,13 @@ export default function Img(props) {
 As a quick note, notice that we've put `props.width` in curly braces `{}`. Any javascript expression inside JSX needs to be in curly braces. But then, where did `props.width` come from?
 
 Basically, React takes the names and values of all the props we pass to a component and combines them into a single object as key-value pairs. So, the props object we passed to `Img` actually looks like this:
-```
+```js
 props = {
   width: '300px'
 }
 ```
 If we had passed more props, say,`<Img width='300px' border='5px solid blue' random='unicorn'/>`, we'd get a props object like so:
-```
+```js
 props = {
   width: '300px',
   border: '5px solid blue',
@@ -202,7 +198,7 @@ props = {
 }
 ```
 If we don't want to call `props.[propName]` everytime, we can use object destructuring to make things neater:
-```
+```js
 export default function Img(props) {
   const { width, border, random } = props
   return (
@@ -213,7 +209,7 @@ export default function Img(props) {
 }
 ```
 Or simply:
-```
+```js
 export default function Img({ width, border, random }) {
   return (
     <div style={{maxHeight: '500px'}}>
@@ -223,7 +219,7 @@ export default function Img({ width, border, random }) {
 }
 ```
 We've been playing with a width prop for simplicity, but the prop we actually want to vary between our images is the source url. Let's go back and finish up our grid of images. First we'll modify `App` like so:
-```
+```js
 import React from 'react'
 import Layout from './Layout'
 import Img from './Img'
@@ -242,7 +238,7 @@ export default function App() {
 }
 ```
 Then we'll pass `src` to `Img`:
-```
+```js
 export default function Img({ src }) {
   return (
     <div style={{maxHeight: '500px'}}>
@@ -272,7 +268,7 @@ So how does state work? We need a variable to contain our state. If you think ab
 To create that variable, we'll use what's called a `hook`. Hooks in general are just functions that allow us to grab values from other code modules. We're "hooking" into those other modules. The hook we'll use is helpfully named `useState()`. It returns an array that contains two things: (1) our state variable, the state value and (2) a function for updating that value.
 
 As a schematic, we're going to have something like this in our switch component. Note this won't run as is. We'll get to the final code in the next section:
-```
+```js
 function Switch(props) {
   const [state, setState] = useState('image')
 
@@ -293,15 +289,15 @@ When our component runs we check the value of `state` and set `src` to the corre
 
 ### Finish the Switch
 As usual, we're going to start our component by importing React:
-```
+```js
 import React from 'react'
 ```
 We also need import `useState`. It's in the core React library too:
-```
+```js
 import React, { useState } from 'react'
 ```
 Now we'll start to write our switch component and add in `useState`:
-```
+```js
 export default function Switch(props){
   const { img, gif }
   const [showImg, setShowImg] = useState(true)
@@ -310,7 +306,7 @@ export default function Switch(props){
 Here we're making our state variable a boolean. Since we need a variable with two possible values, a true-false value will be the simplest. We'll say if `showImg` is true, we'll show the image, and if it's false we'll show the gif.
 
 The next step is to check the value of `showImg` and return the appropriate JSX. Here are two ways you might finish up `Switch`. First, you might do what's called conditional rendering and wrap your return statement in an `if-else`:
-```
+```js
 export default function Switch(props) {
   const { img, gif, alt } = props
   const [showImg, setShowImg] = useState(true)
@@ -324,7 +320,7 @@ export default function Switch(props) {
 Here we check the value of `showImg` and then return `<Img/>` pre-filled with the right props and new value (true or false) for our state when the user clicks.
 
 But we could also just make the value of src conditional like so:
-```
+```js
 export default function Switch(props) {
   const { img, gif, alt } = props
   const [showImg, setShowImg] = useState(true)
@@ -335,7 +331,7 @@ export default function Switch(props) {
 It's a little tighter, and since we're using the boolean, it's easy to setup the `onClick` for both cases. If your new state has more options or if you're returning different components based on state, you'll want to use conditional rendering.
 
 We're now ready to put our `Switch` to work. Jump back over to `App.js`, and we'll replace `<Img/>` with `<Switch/>` like so:
-```
+```js
 import React from 'react'
 import Layout from './Layout'
 import Switch from './Switch'
@@ -351,15 +347,15 @@ export default function App() {
 Don't forget to swap out the imports at the top of the file.
 
 Save and check over in your browser. Once again, nothing changed. Or if something did we went backward from the grid of images to a single image. That's because we're not actually triggering that `onClick` function anywhere. So let's go back into `Img.js` and make our image a button:
-```
+```js
 import React from 'react'
 import Button from './Button'
 
-export default function Img({ src, onClick }) {
+export default function Img({ src, onClick, alt }) {
   return (
     <div style={{maxHeight: '500px'}}>
       <Button onClick={onClick}>
-        <img src={src} alt='my img' width='300px' />
+        <img src={src} alt={alt} width='300px' />
       </Button>
     </div>
   )
@@ -370,7 +366,32 @@ export default function Img({ src, onClick }) {
 Now, if you save and hop over to your browser, you should have an image that toggles between the image and a gif when you click on it. Woo!
 
 ### Map Over Data
-Finally, to complete our grid. We'll learn/review an array method that you'll use a lot in React-- `array.map()`.
+Finally, to complete our grid. We'll learn/review an array method that you'll use a lot in React-- `array.map()`. Map takes an array as input and returns a new array. This method is great for when you want to run some function on every element of an array. This method gets used in React *a lot* because very often we have an array of data and we want to return an array of corresponding jsx for viewing all of that data. A typical example is if you have a kanban-type board of todos. You might have a component `<TaskCard/>` and a data set that consists of several todos. You map over your data set and return a `<TaskCard/>` element with appropriate props for each todo in your list.
+
+Notice that we have a similar structure here. We want to take some data, in our case an array of image-gif url pairs, and map over it to return a `<Switch/>` for each pair. So over in `App.js`, let's add the following:
+
+First, we'll import our data from the file rather than hardcoding it:
+```js
+import imgSources from './data'
+```
+Then, we'll update `App` to map over our data:
+```js
+export default function App() {
+  const imgToGifs = imgSources.map((urls, i) => {
+    return <Switch img={img} gif={gif} alt={i} key={i} />
+  })
+  return (
+    <Layout>
+      {imgToGifs}
+    </Layout>
+  )
+}
+```
+Just in case `.map()` isn't familiar, let's say just a bit more about what's going on here. First, map works by taking in a callback function and returning an array. So inside the parenthesis of every `.map()` we need a function with a return statement. Whatever we `return` will be the element of the new array corresponding to the item in the original array. Here we're returning an array of jsx, of Switch components. Then, since we've constructed an array of jsx, we can simply drop it into App's `return`. As usual, any js inside jsx goes in curly braces.
+
+And that's it! If you head over to your browser, you should see your grid!
 
 ### A Challenge
-Now that you've completed the tutorial, try to create a secret message that pops up when the user has a particular number of gifs showing. To do this, you'll need a state variable to track how many gifs are showing and one more hook called `useEffect()`. Effects are just functions that trigger under certain conditions. Those conditions are defined by their dependencies.
+Now that you've completed the tutorial, try to create a secret message that pops up when the user has a particular number of gifs showing. To do this, you'll need a state variable to track how many gifs are showing and one more hook called `useEffect()`. Effects are just functions that trigger under certain conditions. Those conditions are defined by the function's dependencies. You can read more about useEffect [here](https://reactjs.org/docs/hooks-effect.html).
+
+So as a hint, you'll want to write a function that adds to or subtracts from your counter variable and then checks its value for the magic number. You'll want to then wrap this function in a `useEffect()` hook, so that you trigger it each time the user toggles an image. Good luck!
