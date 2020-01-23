@@ -18,14 +18,14 @@ This walkthrough is intended to give you most of the content, both step by step 
 [Map over Data](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#map-over-data)\
 [A Challenge](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/walkthrough.md#a-challenge)
 
-:collision: To start, clone this repo (On an LL machine open Terminal; then enter the commands `cd development` and `git clone https://github.com/learninglab-dev/ll-first-reactLab.git`) and open the code in your favorite editor. (Again, on an LL machine, `cd ll-first-reactLab` and `atom .`)
+:collision: To start, clone this repo (On an LL machine open Terminal; then enter the commands `cd development` and `git clone https://github.com/learninglab-dev/ll-first-reactLab.git`) and open the code in your favorite editor by entering `cd ll-first-reactLab` and then `atom .`
 
 ### What You'll Make
-Before we take a look at the code, let's first take a look at what we'll make. Over in Terminal, enter `npm i` to install dependencies and then when that finishes `npm start`. You should see a message that says "Starting the development server..." and React should automatically open `localhost:3000` in your browser. (Btw, if you've never started a React app in development mode, now you know how!)
+Before we take a look at the code, let's take a look at what we'll make in this tutorial. Over in Terminal, enter `npm i` to install dependencies and then, when that finishes, enter `npm start`. You should see a message that says "Starting the development server..." and React should automatically open `localhost:3000` in your browser. (Btw, if you've never started a React app in development mode, now you know how!)
 
 If you check out the app, you'll see a grid of images. As of this writing, they feature four-legged friends, but hopefully by the time the semester starts, you'll see some familiar faces. Clicking on the images will toggle them to gifs and back again.
 
-Why is this a cool first React project? Well, for one thing, who doesn't want a people landing page with headshots and gifs?? More seriously, as a tool React is most useful for pages that change frequently in response to user interactions or new data. React components are also modular and resusable, so you can write code once, but use your page element many times. We'll get into both of those benefits more as reactLab gets going, but as you can see, the image-gif grid checks both boxes: what the user sees changes as they interact with the page; and we have a component, the image-gif button, that we're reusing multiple times.
+Why is this a cool first React project? Well, for one thing, who doesn't want a people landing page with headshots and gifs?? More seriously, as a tool React is most useful for pages that change frequently in response to user interactions or new data. React components are also modular and reusable, so you can write code once, but use your page element many times. We'll get into both of those benefits more as reactLab gets going, but as you can see, the image-gif grid checks both boxes: what the user sees changes as they interact with the page; and we have a component, the image-gif button, that we're reusing multiple times.
 
 ### How to Navigate
 Okay, let's get into the code! If you jump over to Atom (or your other text editor), you'll see the app's structure. At the top level, there are two folders: `public` and `src`. Your `node_modules` and `package.json` are there too, but we're not going to edit those.
