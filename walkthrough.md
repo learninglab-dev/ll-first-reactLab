@@ -25,14 +25,14 @@ Before we take a look at the code, let's take a look at what we'll make in this 
 
 If you check out the app, you'll see a grid of images. As of this writing, they feature four-legged friends, but hopefully by the time the semester starts, you'll see some familiar faces. Clicking on the images will toggle them to gifs and back again.
 
-Why is this a cool first React project? Well, for one thing, who doesn't want a people landing page with headshots and gifs?? More seriously, as a tool React is most useful for pages that change frequently in response to user interactions or new data. React components are also modular and reusable, so you can write code once, but use your page element many times. We'll get into both of those benefits more as reactLab gets going, but as you can see, the image-gif grid checks both boxes: what the user sees changes as they interact with the page; and we have a component, the image-gif button, that we're reusing multiple times.
+Why is this a cool first React project? Well, for one thing, who doesn't want a people landing page with headshots and gifs?? More seriously, React is at its most helpful when used as a tool for pages that change frequently in response to user interactions or new data. React components are also modular and reusable, so you can write code once but use that element many times. We'll get into both of those benefits more as reactLab gets going, but as you can see, the image-gif grid checks both boxes: what the user sees will change as they interact with the page; and we have a component (the image-gif button) that we're reusing multiple times.
 
 ### How to Navigate
 Okay, let's get into the code! If you jump over to Atom (or your other text editor), you'll see the app's structure. At the top level, there are two folders: `public` and `src`. Your `node_modules` and `package.json` are there too, but we're not going to edit those.
 
-Start by opening up the `public` folder. The essential file in here is `index.html`. If you open it up, you'll see that it's pretty, well, uninteresting. The html file is essentially a stem. This is because React is going to generate our html for us. When you build a React app, you write javascript that describes the DOM, that is, what the page should look like, for every possible state of your app. React uses a tool called Webpack to package all your scripts together and send them to the browser in a bundle. When a user interacts with your app, React runs your code and renders the appropriate html. The client never needs fetch html from your server after the initial download.
+Start by opening up the `public` folder. The essential file in here is `index.html`. If you open it up, you'll see that it's pretty, well, uninteresting. The html file is essentially a stem, because React is going to generate our html for us. When you build a React app, you write javascript that describes the DOM (AKA what the page should look like) for every possible state of your app. React uses a tool called Webpack to package all your scripts together and send them to the browser in a bundle. When a user interacts with your app, React runs your code and renders the appropriate html. The client never needs to fetch html from your server after the initial download.
 
-Back to our file structure: Now open `src`. All the code we'll write needs to be in this folder. Otherwise, Webpack won't see it to package it into our app. This app looks a little funny because I've made two copies of it for you. In the folder `01_example` is the completed code; the code you're currently running. In the folder, `02_starter` is a template; this is where you'll write your code.
+Back to our file structure: Now open `src`. All the code we write needs to be in this folder. Otherwise, Webpack won't see it to package it into our app. This app looks a little funny because I've made two copies of it for you: in the folder `01_example` is the completed code (the code you're currently running on `localhost:3000`), and in the folder `02_starter` is a template (this is where you'll write your code).
 
 ### Index.js: The Entry Point
 Every react app has an entry point. It's typically in a file called `Index.js`, though you can name this file whatever you like. This file is the place where we connect React to the output API of our app. In this case, since we're making an app for the web, this is where React connects to the browser's DOM.
@@ -43,24 +43,24 @@ To see how, open up `index.js`. Because it's so short, let's walk through it lin
 import React from 'react'
 import ReactDOM from 'react-dom'
 ```
-Here we're simply importing React itself. That first line needs to be at the top of every javascript file you write that's a react component, so you'll write it over and over. It's the core React library. ReactDOM, on the other hand, we import only once here in `index.js`. This library basically tells React to output html and not native elements or something else. We're creating an app to be viewed in a browser.
+Here we're simply importing React itself. That first line is the core React library, and needs to be at the top of every javascript file you write that's a React component, so you'll write it over and over. The second line imports ReactDOM, which we only have to import once, here in `index.js`. This library basically tells React to output html and not native elements or something else, because we're creating an app to be viewed in a browser.
 
 ```js
 import App from './01_example/App'
 ```
-Next, we're importing our own code. (By the way, `import` is pretty much the es6 version of `require`. I'll leave it to you to google the differences if you want.) In react, components are organized in a tree. There are parent components and children. Here, as in most react apps you'll build, `App` is the top of our tree. It's the top-level parent.
+Next, we're importing our own code. (By the way, `import` is pretty much the es6 version of `require`. I'll leave it to you to google the differences if you want.) In React, components are organized in a tree. There are parent components and children. Here, as in most React apps you'll build, `App` is the top of our tree. It's the top-level parent.
 
 ```js
 ReactDOM.render(<App />, document.getElementById('root'))
 ```
-Finally, we call the `ReactDOM.render()` function. This function tells react to go to work. React will start from the component we feed it, in this case App, and render that component and all of its children into html. It will "insert" this generated html into the DOM element we've identified, which is `root`. If you remember from our quick look at `index.html`, root is just a solo `<div>` inside `<body>`, so the html React generates will become the body of our page.
+Finally, we call the `ReactDOM.render()` function. This function tells react to go to work. React will start from the component we feed it (in this case, App), and render that component and all of its children into html. It will "insert" this generated html into the DOM element we've identified, which is `root`. If you remember from our quick look at `index.html`, root is just a solo `<div>` inside `<body>`, so the html React generates will become the body of our page.
 
-:collision: We're finally ready to write some code. To get started, look back at the top of `Index.js`. You'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'`. This switches from running the example app to the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and hit `npm start` again to get the blank page.)
+:collision: We're finally ready to write some code! To get started, look back at the top of `Index.js`. You'll see some `import` statements. One is commented out. Uncomment it and then comment out the statement that says `import App from './01_example/App'`. This switches from running the example app to running the starter pack. If you check back in your browser, you should now see a blank page. (If you've stopped your server in the meanwhile, head back over to Terminal and enter `npm start` again to get the blank page.)
 
 ### JSX... What?
-One thing you'll notice when working with a react app is that it automatically updates what you see in the browser every time you save your code. So let's do it! :collision: Open the folder `02_starter` and then the file `App.js`.
+One thing you'll notice when working with a React app is that it automatically updates what you see in the browser every time you save your code. So let's do it! :collision: Open the folder `02_starter` and then the file `App.js`.
 
-:collision: As we said, `App` is our the top-level component. We'll get to what's going on in this file in a bit, but first, let's make a change so we can see a change in the browser. Update the `return` statement so it looks like this. You can put any text you like; "hello world!" is just tradition:
+:collision: As we said, `App` is our top-level component. We'll get to what's going on in this file in a bit, but first, let's make a change so we can see a change in the browser. Update the `return` statement so it looks like this. You can put any text you like; "hello world!" is just tradition:
 
 ```js
 return (
@@ -69,18 +69,18 @@ return (
   </Layout>
 )
 ```
-If you check over in your browser, you should see your message. Okay, so that wasn't very exciting, but you did just write your first (assuming this is your first react tutorial) bit of JSX. That's cool! But, wait... it looked a whole lot like html. Exactly. JSX is an extension of javascript that allows you to make use of your existing html knowledge. The majority of the time, html is your friend in react. If you want to insert a new div, go ahead and pop in a `<div>` tag.
+If you check over in your browser, you should see your message. Okay, so that wasn't very exciting, but you did just write your first (assuming this is your first React tutorial) bit of JSX! But, wait... you might be thinking it looked a whole lot like html. Exactly. JSX is an extension of javascript that allows you to make use of your existing html knowledge. The majority of the time, html is your friend in React. If you want to insert a new div, go ahead and pop in a `<div>` tag.
 
-There are some differences, however. For example, all attributes you put inside an opening tag are camelCased, e.g. `onClick` in JSX rather than `onclick` in html. In general, I'd recommend that you try the html you know; if the code doesn't work as expected, that's a good moment to google jsx-html differences.
+There are some differences, however. For example, all attributes you put inside an opening tag are camelCased, e.g. `onClick` in JSX rather than `onclick` in html. In general, I'd recommend that you try the html you know, and if the code doesn't work as expected, that's a good moment to google JSX-html differences.
 
 Just to be clear, JSX is NOT html. We could have used [just javascript](https://reactjs.org/docs/react-without-jsx.html) and instead written:
 ```js
 React.createElement('h2', null, 'hello world!')
 ```
-This is, afterall, what our JSX gets compiled to before react generates the actual html for our app.
+This is, after all, what our JSX gets compiled to before react generates the actual html for our app.
 
 ### First Component
-:collision: Okay, we're finally ready to write our first component. Let's jump over to the file `Img.js`. As we said awhile back, every file that contains a react component begins by importing react, so add this first line to your file:
+:collision: Okay, we're finally ready to write our first component! Let's jump over to the file `Img.js`. As we said awhile back, every file that contains a react component begins by importing react, so add this first line to your file:
 ```js
 import React from 'react'
 ```
@@ -88,6 +88,8 @@ Now we need to create our component. But what's a component? It's just a functio
 
 :collision: So we'll start by writing a function:
 ```js
+import React from 'react'
+
 export default function Img() {
 
 }
@@ -96,6 +98,8 @@ Two quick things to note here: (1) The function declaration is preceded by the `
 
 :collision: Next we said that components are functions that return JSX. So, let's do that Add a return statement to `Img()` as follows:
 ```js
+import React from 'react'
+
 export default function Img() {
   return (
     <div style={{maxHeight: '500px'}}>
@@ -107,9 +111,9 @@ export default function Img() {
 Be sure to add in a real image url or you won't see anything. Save and hop over to your browser. But wait! Nothing's changed...
 
 ### Composition
-That's because we haven't used our image component anywhere. Remember, in `Index.js` we're rendering `App`, but if you look back at the code in `App.js`, it's clear that `App` doesn't know anything about `Img`.
+That's because we haven't used our image component anywhere. Remember, in `Index.js` we're rendering `App`, but if you look back at the code in `App.js`, you'll see that `App` doesn't know anything about `Img`.
 
-:collision: A central react principle is the idea of composition. That is, we build more complex UI by combining together individual components rather than sharing code between them. So, we're going to call `Img` within `App`. Start by importing it in `App.js` like so:
+:collision: A central React principle is the idea of composition. That is, we build more complex UI by combining together individual components rather than sharing code between them. So, we're going to call `Img` within `App`. Start by importing it in `App.js` like so:
 ```js
 import React from 'react'
 import Layout from './Layout'
@@ -146,7 +150,7 @@ return (
   </Layout>
 )
 ```
-Now you should see a row of images in the browser. By using a modular component and composition, we were able to render multiple elements on our page without rewriting any code. Nice. Note that we're also using composition with `<Layout />` here too. It's a component I've written for you that lays your images out in a grid. It's code is over in `Layout.js` if you want to look at it. But, of course, composition isn't much good if we can only show multiple copies of the same image. We need to be able to customize each instance of our component. Enter `props`.
+Now you should see a row of images in the browser. By using a modular component and composition, we were able to render multiple elements on our page without rewriting any code. Nice. Note that we're also using composition with `<Layout />` here too. `<Layout />` is a component I've written for you that lays your images out in a grid. Its code is over in `Layout.js`, if you want to take a look! But, of course, composition isn't much good if we can only show multiple copies of the same image. We need to be able to customize each instance of our component. This is when `props` come in handy.
 
 ### Props
 `props`, short for properties, are the data we pass to a component when we render it. So, if we wanted our images to be different sizes, for example, we could pass a `width` prop, like so:
@@ -197,7 +201,7 @@ props = {
   random: 'unicorn'
 }
 ```
-If we don't want to call `props.[propName]` everytime, we can use object destructuring to make things neater:
+If we don't want to call `props.[propName]` every time, we can use object destructuring to make things neater:
 ```js
 export default function Img(props) {
   const { width, border, random } = props
@@ -223,8 +227,6 @@ We've been playing with a width prop for simplicity, but the prop we actually wa
 import React from 'react'
 import Layout from './Layout'
 import Img from './Img'
-import imgSources from './data'
-
 
 //the top-level component for our app. I've added some basic styling and a flexbox layout for you so your gifs make a nice grid :)
 export default function App() {
@@ -258,14 +260,14 @@ So, thinking back to the example, we've got a grid of images. Then, when the use
 3. A component for showing gifs
 4. A switch that keeps track of which one should be shown for each slot in the grid
 
-We already have (1). That's `<Layout />`. We also just wrote (2). Happily for us, it turns out that (3) is really the same as (2), since html treats static images and gifs as the same type of thing. We just pass <Img /> a gif url rather than image one as its `src` prop. So that leaves (4). We need to build our switch, and we need one more React tool to do it: State.
+We already have (1). That's `<Layout />`. We also just wrote (2). Lucky for us, it turns out that (3) is really the same as (2), since html treats static images and gifs as the same type of thing. We just pass <Img /> a gif url rather than image one as its `src` prop. So that leaves (4). We need to build our switch, and we need one more React tool to do it: State.
 
 ### useState()
-State is just what it sounds like. It's how we track what our user should be seeing at any given moment. In the case of our app, each of the slots in our grid has two states: image showing and gif showing. The collection of all of these binary states together is the state of our app, what the user sees. To simplify things in this first tutorial, our app is such that no component needs to know the total app state. As long as each toggle "knows" what state it's in, then all the toggles will render correctly.
+State is just what it sounds like: it's how we track what our user should be seeing at any given moment. In the case of our app, each of the slots in our grid has two states: image showing and gif showing. The collection of all of these binary states together is the state of our app, what the user sees. To simplify things in this first tutorial, our app is such that no component needs to know the total app state. As long as each toggle "knows" what state it's in, then all the toggles will render correctly.
 
-So how does state work? We need a variable to contain our state. If you think about what you know about how variable scopes work, you might come to the conclusion that we can't define this variable inside our components. Afterall, our components are just functions; each time a function runs the variables declared within its scope are reset. So we need something more global, something that will persist across component renders.
+So how does state work? We need a variable to contain our state. If you think about what you know about how variable scopes work, you might come to the conclusion that we can't define this variable inside our components. After all, our components are just functions; each time a function runs the variables declared within its scope are reset. So we need something more global, something that will persist across component renders.
 
-To create that variable, we'll use what's called a `hook`. Hooks in general are just functions that allow us to grab values from other code modules. We're "hooking" into those other modules. The hook we'll use is helpfully named `useState()`. It returns an array that contains two things: (1) our state variable, the state value and (2) a function for updating that value.
+To create that variable, we'll use what's called a `hook`. Hooks are generally just functions that allow us to grab values from other code modules by "hooking" into those other modules. The hook we'll use is helpfully named `useState()`. It returns an array that contains two things: (1) our state variable, the state value and (2) a function for updating that value.
 
 As a schematic, we're going to have something like this in our switch component. Note this won't run as is. We'll get to the final code in the next section:
 ```js
@@ -283,9 +285,9 @@ function Switch(props) {
     )
 }
 ```
-We call `useState()` and it returns that array of two things. We're again using destructuring to get our values out. `state` gets the first value in the array, the state value itself. `setState` gets the second value, the update function. You'll often see state variables and their update functions named as pairs with the variable name and then set preceeding the variable name, e.g. `myStateVariable` and `setMyStateVariable`, but you can name these as you like. The value we pass to `useState`, in this case `image`, is the initial state. If you pass nothing, the state is initially undefined.
+When we call `useState()`, it returns that array of two things, so we'll use destructuring again to get our values out. `state` gets the first value in the array, the state value itself. `setState` gets the second value, the update function. You'll often see state variables and their update functions named as pairs, with the variable name and then set preceding the variable name (e.g. `myStateVariable` and `setMyStateVariable`), but you can name these as you like. The value we pass to `useState`, in this case `image`, is the initial state. If you pass nothing, the state is initially undefined.
 
-When our component runs we check the value of `state` and set `src` to the corresponding url. We'll also pass `setState` to image as a prop because we're going to need to call that function to change the state when someone clicks on the image. But that's getting a bit ahead. For now, let's open `Switch.js` and complete the code for our switch component.
+When our component runs we check the value of `state` and set `src` to the corresponding url. We'll also pass `setState` to `image` as a prop because we're going to need to call that function to change the state when someone clicks on the image. But that's getting a bit ahead of ourselves. For now, let's open `Switch.js` and complete the code for our switch component.
 
 ### Finish the Switch
 :collision: As usual, we're going to start our component by importing React:
@@ -295,6 +297,7 @@ import React from 'react'
 :collision: We also need import `useState`. It's in the core React library too:
 ```js
 import React, { useState } from 'react'
+import Img from './Img'
 ```
 :collision: Now we'll start to write our switch component and add in `useState`:
 ```js
@@ -303,10 +306,13 @@ export default function Switch(props){
   const [showImg, setShowImg] = useState(true)
 }
 ```
-Here we're making our state variable a boolean. Since we need a variable with two possible values, a true-false value will be the simplest. We'll say if `showImg` is true, we'll show the image, and if it's false we'll show the gif.
+Here, we're making our state variable a boolean. Since we need a variable with two possible values, a true-false value will be the simplest. We'll say if `showImg` is true, we'll show the image, and if it's false we'll show the gif.
 
-The next step is to check the value of `showImg` and return the appropriate JSX. Here are two ways you might finish up `Switch`. First, you might do what's called conditional rendering and wrap your return statement in an `if-else`:
+The next step is to check the value of `showImg` and return the appropriate JSX. There are two ways you might finish up `Switch`. First, you might do what's called conditional rendering and wrap your return statement in an `if-else`:
 ```js
+import React, { useState } from 'react'
+import Img from './Img'
+
 export default function Switch(props) {
   const { img, gif, alt } = props
   const [showImg, setShowImg] = useState(true)
@@ -317,10 +323,13 @@ export default function Switch(props) {
   }
 }
 ```
-Here we check the value of `showImg` and then return `<Img/>` pre-filled with the right props and new value (true or false) for our state when the user clicks.
+Here, we check the value of `showImg` and then return `<Img/>` pre-filled with the right props and new value (true or false) for our state when the user clicks.
 
 :collision: But we could also just make the value of src conditional like so:
 ```js
+import React, { useState } from 'react'
+import Img from './Img'
+
 export default function Switch(props) {
   const { img, gif, alt } = props
   const [showImg, setShowImg] = useState(true)
@@ -328,7 +337,7 @@ export default function Switch(props) {
   return <Img src={src} alt={alt} onClick={() => setShowImg(!showImg)}/>
 }
 ```
-It's a little tighter, and since we're using the boolean, it's easy to setup the `onClick` for both cases. If your new state has more options or if you're returning different components based on state, you'll want to use conditional rendering.
+This code is a little tighter, and since we're using the boolean, it's easy to setup the `onClick` for both cases. If your new state has more options or if you're returning different components based on state, though, you'll want to use conditional rendering instead.
 
 :collision: We're now ready to put our `Switch` to work. Jump back over to `App.js`, and we'll replace `<Img/>` with `<Switch/>` like so:
 ```js
@@ -361,16 +370,16 @@ export default function Img({ src, onClick, alt }) {
   )
 }
 ```
-`<Button>` is another prefab component like `<Layout>` where I've just given you some basic styling to make things look clean. It's code is over in `Button.js` if you want to take a look.
+`<Button>` is another prefab component like `<Layout>` where I've just given you some basic styling to make things look clean. Its code is over in `Button.js` if you want to take a look.
 
 Now, if you save and hop over to your browser, you should have an image that toggles between the image and a gif when you click on it. Woo!
 
 ### Map Over Data
-Finally, to complete our grid. We'll learn/review an array method that you'll use a lot in React-- `array.map()`. Map takes an array as input and returns a new array. This method is great for when you want to run some function on every element of an array. This method gets used in React *a lot* because very often we have an array of data and we want to return an array of corresponding jsx for viewing all of that data. A typical example is if you have a kanban-type board of todos. You might have a component `<TaskCard/>` and a data set that consists of several todos. You map over your data set and return a `<TaskCard/>` element with appropriate props for each todo in your list.
+Finally, to complete our grid. We'll learn/review an array method that you'll use a lot in React-- `array.map()`. Map takes an array as input and returns a new array. This method is great for when you want to run some function on every element of an array. This method gets used in React *a lot* because we frequently want to return an array of corresponding JSX for viewing an array of data. A typical example is if you have a kanban-type board of to-dos. You might have a component `<TaskCard/>` and a data set that consists of several to-dos. You map over your data set and return a `<TaskCard/>` element with appropriate props for each to-do in your list.
 
 Notice that we have a similar structure here. We want to take some data, in our case an array of image-gif url pairs, and map over it to return a `<Switch/>` for each pair. So over in `App.js`, let's add the following:
 
-:collision: First, we'll import our data from the file rather than hardcoding it:
+:collision: First, we'll import our data from the file rather than hardcoding it (make sure you copy/paste your URLs into `data.js` so this code has something to import!):
 ```js
 import imgSources from './data'
 ```
@@ -387,7 +396,7 @@ export default function App() {
   )
 }
 ```
-Just in case `.map()` isn't familiar, let's say just a bit more about what's going on here. First, map works by taking in a callback function and returning an array. So inside the parenthesis of every `.map()` we need a function with a return statement. Whatever we `return` will be the element of the new array corresponding to the item in the original array. Here we're returning an array of jsx, of Switch components. Then, since we've constructed an array of jsx, we can simply drop it into App's `return`. As usual, any js inside jsx goes in curly braces.
+Just in case `.map()` isn't familiar, let's talk about what's going on here. First, map works by taking in a callback function and returning an array. So inside the parenthesis of every `.map()` we need a function with a return statement. Whatever we `return` will be the element of the new array corresponding to the item in the original array. Here we're returning an array of JSX, of Switch components. Then, since we've constructed an array of JSX, we can simply drop it into App's `return`. As usual, any JS inside JSX goes in curly braces.
 
 And that's it! If you head over to your browser, you should see your grid!
 
