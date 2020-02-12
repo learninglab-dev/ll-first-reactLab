@@ -10,11 +10,11 @@ Warning: spoilers ahead for the FirstReactLab challenge!
 [Build useEffect](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/challengesolution.md#build-useeffect)\
 
 # Creating a Counter State
-This challenge is asking us to keep track of the number of GIFs we're displaying using a counter. To solve this task, we can put our new knowledge of states to use by creating a State for our Counter!
+This challenge is asking us to keep track of the number of GIFs we're displaying using a counter. To solve this task, we can put our new knowledge of states to use by creating a state for our counter!
 
-Two key things to know for creating this state: for one, states don't have to be boolean—they can be numbers, strings, functions, etc! In this case, we'll want to make our state a number that will increment in the function we'll build to change its value. The second thing to know is that in this function, there are several levels of parent & child components: App.js is the parent, and Switch is the child under that, with Image being the child under Switch. To keep track of all of the GIFs in your webpage, you'll want to keep your counter state up in App.js, so that it can know the state of all GIFs/images being displayed.
+Two key things to know for creating this state: for one, states don't have to be boolean—they can be numbers, strings, functions, etc! In this case, we'll want to make our state a number that will increment as GIFs appear on the display. The second thing to know is that in this function, there are several levels of parent & child components: App.js is the parent, and Switch is the child under that, with Image being the child under Switch. To keep track of all of the GIFs in your webpage, you'll want to keep your counter state up in App.js, so that it can know the state of all GIFs/images being displayed.
 
-We're going to want to use the same `useState` syntax as we used for showImg and setShowImg! In the top-level component of App.js, add a line establishing your count state.
+We're going to want to use the same `useState` syntax as we used for showImg and setShowImg. In the top-level component of App.js, add a line establishing your count state:
 ```js
 import React, { useState } from 'react'
 import Layout from './Layout'
@@ -39,11 +39,11 @@ Note that we added `useState` to the collection of things we're importing from t
 Also, note that our counter state is a number initialized at zero (`useState(0)`). This will allow us to easily increment and decrement—a function we'll create in our next step!
 
 # Counter Value Functions
-Now that we have a counter state that we're keeping track of, we can implement a function that will change it as images are changed to GIFs and vice versa.
+Now that we have a counter state that we're keeping track of, we can implement a function that will increment it as images are changed to GIFs and vice versa.
 
-For this step, a key new piece of information is that you can pass anything as a prop to child components—functions included! Our increment & decrement functions will live in App.js, but in order to be called at the right time (during the click handler event), we have to pass it over to Switch.js as a prop.
+For this step, a key new piece of information to know is that you can pass anything as a prop to child components—functions included! Our increment & decrement functions will live in App.js, but in order to be called at the right time (during the click handler event), we have to pass it over to Switch.js as a prop.
 
-Let's write the functions first! For our increment function, we want to increase our count value by 1, and for our decrement function we'll want to decrease the count value by 1. To do so, we can use fat arrow function notation & `setCount`!
+Let's write the functions first! For our increment function, we want to increase our count value by 1, and for our decrement function we'll want to decrease the count value by 1. To do so, we can use fat arrow function notation & `setCount`:
 ```js
 import React, { useState } from 'react'
 import Layout from './Layout'
@@ -103,7 +103,7 @@ export default function Switch(props) {
   }
 }
 ```
-Note a couple of things here. For one, we've added `increment` and `decrement` to our `props` const. For another, we've put  `setShowImg()` in curly braces within the onClick function. This is going to give us space to add the increment & decrement functions! We want to call those functions after we set the state of `showImg` to a GIF (false) or an image (true). We want to increment count when it's being changed to a GIF, because that means we have one more GIF on display; and we want to decrement count when it's being changed to an image, because there's then one less GIF on display. That should look like this:
+Note a couple of things here. For one, we've added `increment` and `decrement` to our `props` const. For another, we've put `setShowImg()` in curly braces within the onClick function. This is going to give us space to add the increment & decrement functions! We want to call those functions after we set the state of `showImg` to a GIF (false) or an image (true). We want to increment count when it's being changed to a GIF, because that means we have one more GIF on display; and we want to decrement count when it's being changed to an image, because there's then one less GIF on display. That should look like this:
 ```js
 import React, { useState } from 'react'
 import Img from './Img'
