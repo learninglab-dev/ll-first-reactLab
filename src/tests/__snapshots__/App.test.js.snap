@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it renders and images display 1`] = `
+<DocumentFragment>
+  <div
+    class="container"
+    style="display: flex; padding: 10%; justify-content: space-between; flex-wrap: wrap; background-color: rgb(226, 232, 237); min-height: 100vh; margin: 0px; flex-direction: row; align-items: flex-start; align-content: flex-start;"
+  >
+    <img
+      alt="cute kitten"
+      src="https://images.pexels.com/photos/416160/pexels-photo-416160.jpeg"
+      width="300px"
+    />
+    <img
+      alt="also cute"
+      src="https://images.pexels.com/photos/127027/pexels-photo-127027.jpeg"
+      width="300px"
+    />
+    <img
+      alt="not a kitten"
+      src="https://images.pexels.com/photos/1564506/pexels-photo-1564506.jpeg"
+      width="300px"
+    />
+  </div>
+</DocumentFragment>
+`;
