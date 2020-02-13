@@ -64,11 +64,11 @@ import imgSources from './data'
 export default function App() {
   const [count, setCount] = useState(0)
 + const increment = () => {
-    setCount(count + 1)
-  }
++   setCount(count + 1)
++ }
 + const decrement = () -> {
-    setCount(count - 1)
-  }
++   setCount(count - 1)
++ }
   const imgToGifs = imgSources.map((urls, i) => {
     return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} />
   })
@@ -79,73 +79,90 @@ export default function App() {
   )
 }
 ```
-This step isn't done yet, though. Now that we have increment & decrement functions, we have to pass them over to Switch.js as a prop and call them during the click handler. Recall from the tutorial that in order to pass a prop, we have to include it in the return statement that sets up our Switch component. That's going to look like this:
-```js
+This step isn't done yet, though. Now that we have `increment` and `decrement`, we need to pass them down to `Switch` as props and call them in the appropriate click handlers. Recall from the Walkthrough that, in order to pass a prop, we need to include it in the return statement that includes our `Switch` component. That's going to look like this:
+```diff
 const imgToGifs = imgSources.map((urls, i) => {
-  return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} increment={increment} decrement={decrement} />
++ return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} increment={increment} decrement={decrement} />
 })
 ​
 ```
 ### Edit Click Handler Function
 ​
-Then, move over to Switch.js so we can call increment & decrement during our onClick function, which is where the switch we want to keep track of is happening. For this challenge, it's best to use the conditional rendering approach to the showImg/setShowImg switch function—although it's clunkier than the src conditional approach, it'll help us see where exactly we want to call our increment and decrement functions. Before we even add the functions, let's remind ourselves what that looks like:
+Now, move over to `Switch.js`. Here we'll call `increment` and `decrement` as our `onClick` functions, so that we update our counter only when the user clicks on an image. For this challenge, it's helpful to use the conditional rendering approach for the `return`—although it's clunkier than packing the conditional into the definition of `src`, it'll help us see where exactly to call our `increment` and `decrement` functions. Before we even add the functions, let's remind ourselves what that version of `Switch` looks like:
 ```js
 import React, { useState } from 'react'
 import Img from './Img'
 ​
 export default function Switch(props) {
-  const { img, gif, alt, increment, decrement } = props
+  const { img, gif, alt } = props
   const [showImg, setShowImg] = useState(true)
   if (showImg) {
-    return (
-      <Img src={img} alt={alt} onClick={() => {
-          setShowImg(false)
-          }
-        }/>
-    )
+    return <Img src={img} alt={alt} onClick={() => setShowImg(false)}/>
   } else {
-    return (
-        <Img src={gif} alt={alt} onClick={() => {
-          setShowImg(true)
-        }
-        }/>
-    )
+    return <Img src={gif} alt={alt} onClick={() => setShowImg(true)}/>
   }
 }
 ```
-Note a couple of things here. For one, we've added `increment` and `decrement` to our `props` const. For another, we've put `setShowImg()` in curly braces within the onClick function. This is going to give us space to add the increment & decrement functions! We want to call those functions after we set the state of `showImg` to a GIF (false) or an image (true). We want to increment count when it's being changed to a GIF, because that means we have one more GIF on display; and we want to decrement count when it's being changed to an image, because there's then one less GIF on display. That should look like this:
-```js
-import React, { useState } from 'react'
-import Img from './Img'
-​
-export default function Switch(props) {
-  const { img, gif, alt, increment, decrement } = props
-  const [showImg, setShowImg] = useState(true)
-  if (showImg) {
-    return (
-      <Img src={img} alt={alt} onClick={() => {
-          setShowImg(false)
-          increment()
-          }
-        }/>
-    )
-  } else {
-    return (
-        <Img src={gif} alt={alt} onClick={() => {
-          setShowImg(true)
-          decrement()
-        }
-        }/>
-    )
+Now let's add a couple of minor things we know we'll need. First, let's add `increment` and `decrement` to things we're grabbing from the `props` object. Second, we'll put `setShowImg()` in curly braces within the `onClick` function. We can no longer use the abbreviated syntax when we add `increment` and `decrement` in there as well.
+```diff
+  import React, { useState } from 'react'
+  import Img from './Img'
+  ​
+  export default function Switch(props) {
++   const { img, gif, alt, increment, decrement } = props
+    const [showImg, setShowImg] = useState(true)
+    if (showImg) {
+      return <Img
+                src={img}
+                alt={alt}
+  +             onClick={() => {
+  +               setShowImg(false)
+  +             }}
+              />
+    } else {
+      return <Img
+                src={gif}
+                alt={alt}
++               onClick={() => {
++                 setShowImg(true)
++               }}
+              />
+    }
   }
-}
-​
 ```
+Now we want to call our new functions after we set `showImg` to a GIF (false) or an image (true). We want to increment `count` when changing to a GIF, because that means we have one more GIF on display; and we want to decrement `count` when changing to an image, because there's then one less GIF on display. That should look like this:
+```diff
+  import React, { useState } from 'react'
+  import Img from './Img'
+  ​
+  export default function Switch(props) {
++   const { img, gif, alt, increment, decrement } = props
+    const [showImg, setShowImg] = useState(true)
+    if (showImg) {
+      return <Img
+                src={img}
+                alt={alt}
+                onClick={() => {
+                  setShowImg(false)
+  +               increment()
+                }}
+              />
+    } else {
+      return <Img
+                src={gif}
+                alt={alt}
+                onClick={() => {
+                  setShowImg(true)
++                 decrement()
+                }}
+              />
+    }
+  }
+```
+We've done a lot here, so now would be a good time to check over in your browser to verify that everything is working. You'll want to add a `console.log()` somewhere, so you can output the value of `count` The easiest place to do this is probably just at the top inside `App`. Once you've got that log, go ahead and test your app. If all went well, and your counter is counting, it's time to tackle the secret message portion of this challenge!
 ​
-Now that we've got our counter incrementing, we can go back to App.js to start adding `useEffect` and tackle the secret message portion of this challenge!
-​
-### Creating a Message State
-The ultimate end goal of this challenge is to have a secret message pop up when we reach a magic number of GIFs on display. In order to make that happen, we want to create a state for the message, where we can set it as whatever string we want once the counter gets to a certain value. That's where `useEffect` will come in—but first, let's add our message state to App.js.
+### Adding the Message
+The ultimate goal of this challenge is to have a "secret" message pop up when we reach a magic number of GIFs on display. One way to make that happen is to make our message a state variable, where we can set it as whatever string we want once the counter gets to a certain value. That's where `useEffect` will come in—but first, let's add our message state to App.js.
 ​
 ```js
 export default function App() {
