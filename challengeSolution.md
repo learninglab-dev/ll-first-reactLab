@@ -31,7 +31,7 @@ We're going to want to use the same `useState` syntax as we used for showImg and
   ​
   ​
   export default function App() {
-  + const [count, setCount] = useState(0)
++   const [count, setCount] = useState(0)
     const imgToGifs = imgSources.map((urls, i) => {
       return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} />
     })
