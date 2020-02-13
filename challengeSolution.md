@@ -24,23 +24,23 @@ Before you read below these lines, take a moment to think about where you might 
 
 We're going to want to use the same `useState` syntax as we used for showImg and setShowImg. In the top-level component, `App.js`, add a new state variable:
 ```diff
-import React, { useState } from 'react'
-import Layout from './Layout'
-import Switch from './Switch'
-import imgSources from './data'
-​
-​
-export default function App() {
-+ const [count, setCount] = useState(0)
-  const imgToGifs = imgSources.map((urls, i) => {
-    return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} />
-  })
-  return (
-    <Layout>
-      {imgToGifs}
-    </Layout>
-  )
-}
++ import React, { useState } from 'react'
+  import Layout from './Layout'
+  import Switch from './Switch'
+  import imgSources from './data'
+  ​
+  ​
+  export default function App() {
+  + const [count, setCount] = useState(0)
+    const imgToGifs = imgSources.map((urls, i) => {
+      return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} />
+    })
+    return (
+      <Layout>
+        {imgToGifs}
+      </Layout>
+    )
+  }
 ```
 Note that we added `useState` to the collection of things we're importing from the React library in line 1!
 ​
