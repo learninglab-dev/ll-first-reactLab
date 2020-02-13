@@ -11,12 +11,19 @@ Warning: spoilers ahead for the FirstReactLab challenge!
 [Build useEffect](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/challengesolution.md#build-useeffect)\
 ​
 # Creating a Counter State
-This challenge is asking us to keep track of the number of GIFs we're displaying using a counter. To solve this task, we can put our new knowledge of states to use by creating a state for our counter!
+This challenge asks us to keep track of the number of GIFs we're displaying using a counter. To solve this task, we can put our new knowledge of state to use by creating a state variable for our counter!
 ​
-Two key things to know for creating this state: for one, states don't have to be boolean—they can be numbers, strings, functions, etc! In this case, we'll want to make our state a number that will increment as GIFs appear on the display. The second thing to know is that in this function, there are several levels of parent & child components: App.js is the parent, and Switch is the child under that, with Image being the child under Switch. To keep track of all of the GIFs in your webpage, you'll want to keep your counter state up in App.js, so that it can know the state of all GIFs/images being displayed.
-​
-We're going to want to use the same `useState` syntax as we used for showImg and setShowImg. In the top-level component of App.js, add a line establishing your count state:
-```js
+Two key things to know for creating this state: for one, state variables don't have to have boolean values—they can be numbers, strings, functions, etc! In this case, we'll want to make our state a number that will increment as GIFs appear on the display. The second thing to know is that we'll use this counter to track the state of multiple components in our app. Remember that `App`, the top-level parent, has multiple children. Each image on our page is created with a copy of our component `Switch`. So `App` has as many children as you have switches, well plus `Layout`. And then `Switch` has it's own children as we continue down the tree. So, it'll be important to think about where we put our counter. It has to be high enough up the tree to "keep track" of all of the GIFs in your webpage.
+
+Before you read below these lines, take a moment to think about where you might put your counter. Which component is high enough up the tree that it can "see" each of the images?
+
+---------------------------------------------
+    **Answers Below**
+
+---------------------------------------------
+
+We're going to want to use the same `useState` syntax as we used for showImg and setShowImg. In the top-level component, `App.js`, add a new state variable:
+```diff
 import React, { useState } from 'react'
 import Layout from './Layout'
 import Switch from './Switch'
@@ -24,7 +31,7 @@ import imgSources from './data'
 ​
 ​
 export default function App() {
-  const [count, setCount] = useState(0)
++ const [count, setCount] = useState(0)
   const imgToGifs = imgSources.map((urls, i) => {
     return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} />
   })
@@ -35,7 +42,7 @@ export default function App() {
   )
 }
 ```
-Note that we added `useState` to the collection of things we're importing from the React library!
+Note that we added `useState` to the collection of things we're importing from the React library in line 1!
 ​
 Also, note that our counter state is a number initialized at zero (`useState(0)`). This will allow us to easily increment and decrement—a function we'll create in our next step!
 ​
