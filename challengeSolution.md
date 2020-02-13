@@ -10,7 +10,7 @@ Warning: spoilers ahead for the FirstReactLab challenge!
 [Creating a Message State](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/challengesolution.md#creating-a-message-state)\
 [Build useEffect](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/challengesolution.md#build-useeffect)\
 ​
-# Creating a Counter State
+### Creating a Counter State
 This challenge asks us to keep track of the number of GIFs we're displaying using a counter. To solve this task, we can put our new knowledge of state to use by creating a state variable for our counter!
 ​
 Two key things to know for creating this state: for one, state variables don't have to have boolean values—they can be numbers, strings, functions, etc! In this case, we'll want to make our state a number that will increment as GIFs appear on the display. The second thing to know is that we'll use this counter to track the state of multiple components in our app. Remember that `App`, the top-level parent, has multiple children. Each image on our page is created with a copy of our component `Switch`. So `App` has as many children as you have switches, well plus `Layout`. And then `Switch` has it's own children as we continue down the tree. So, it'll be important to think about where we put our counter. It has to be high enough up the tree to "keep track" of all of the GIFs in your webpage.
@@ -22,7 +22,9 @@ Before you read below these lines, take a moment to think about where you might 
 
 ---------------------------------------------
 
-We're going to want to use the same `useState` syntax as we used for showImg and setShowImg. In the top-level component, `App.js`, add a new state variable:
+We're going to put our counter in `App`. Why? Because because only `App` has access to each one of our `Switch` components and can share props with them. The instances of `Switch` can't share any information with each other directly.
+
+To implement our counter, we're going to want to use the same `useState` syntax we used for showImg and setShowImg. In the file, `App.js`, add a new state variable:
 ```diff
 + import React, { useState } from 'react'
   import Layout from './Layout'
@@ -44,15 +46,15 @@ We're going to want to use the same `useState` syntax as we used for showImg and
 ```
 Note that we added `useState` to the collection of things we're importing from the React library in line 1!
 ​
-Also, note that our counter state is a number initialized at zero (`useState(0)`). This will allow us to easily increment and decrement—a function we'll create in our next step!
+Also, note that our counter state is a number initialized at zero (`useState(0)`), which we know is how many gifs are showing when a user first loads our app--none! Next we need functions that allow us to increment and decrement this counter. We'll create these in our next step!
 ​
-# Counter Value Functions
+### Counter Value Functions
 Now that we have a counter state that we're keeping track of, we can implement a function that will increment it as images are changed to GIFs and vice versa.
 ​
-For this step, a key new piece of information to know is that you can pass anything as a prop to child components—functions included! Our increment & decrement functions will live in App.js, but in order to be called at the right time (during the click handler event), we have to pass it over to Switch.js as a prop.
+For this step, a key new piece of information to know is that you can pass any type of value as a prop to child components—functions included! Our `increment` and `decrement` functions will live in `App`, but in order to be called at the right time (in the click handler, i.e. when the user clicks), we have to pass our functions down to `Switch` as props.
 ​
-Let's write the functions first! For our increment function, we want to increase our count value by 1, and for our decrement function we'll want to decrease the count value by 1. To do so, we can use fat arrow function notation & `setCount`:
-```js
+Let's write the functions first! For our increment function, we want to increase our count value by 1, and for our decrement function, we want to decrease the count value by 1. To do so, we can use fat arrow function notation and `setCount`:
+```diff
 import React, { useState } from 'react'
 import Layout from './Layout'
 import Switch from './Switch'
@@ -61,10 +63,10 @@ import imgSources from './data'
 ​
 export default function App() {
   const [count, setCount] = useState(0)
-  const increment = () => {
++ const increment = () => {
     setCount(count + 1)
   }
-  const decrement = () -> {
++ const decrement = () -> {
     setCount(count - 1)
   }
   const imgToGifs = imgSources.map((urls, i) => {
@@ -84,7 +86,7 @@ const imgToGifs = imgSources.map((urls, i) => {
 })
 ​
 ```
-# Edit Click Handler Function
+### Edit Click Handler Function
 ​
 Then, move over to Switch.js so we can call increment & decrement during our onClick function, which is where the switch we want to keep track of is happening. For this challenge, it's best to use the conditional rendering approach to the showImg/setShowImg switch function—although it's clunkier than the src conditional approach, it'll help us see where exactly we want to call our increment and decrement functions. Before we even add the functions, let's remind ourselves what that looks like:
 ```js
@@ -142,7 +144,7 @@ export default function Switch(props) {
 ​
 Now that we've got our counter incrementing, we can go back to App.js to start adding `useEffect` and tackle the secret message portion of this challenge!
 ​
-# Creating a Message State
+### Creating a Message State
 The ultimate end goal of this challenge is to have a secret message pop up when we reach a magic number of GIFs on display. In order to make that happen, we want to create a state for the message, where we can set it as whatever string we want once the counter gets to a certain value. That's where `useEffect` will come in—but first, let's add our message state to App.js.
 ​
 ```js
@@ -170,7 +172,7 @@ export default function App() {
 ```
 In addition to the new const with our message state established as a string, we've also added an `<h2>` tag in our layout where the message will go once the counter has reached the magic number & our `useEffect` function changes the state of the message to whatever string we choose. Let's move on to building our `useEffect` function so that we can see the message state in action!
 ​
-# Build useEffect
+### Build useEffect
 Hopefully you've read the documentation for `useEffect` by now, but as a refresher there are two parameters required by `useEffect`: a function, and an array whose changes `useEffect` is keeping track of. Our function here will be a conditional checking whether count has reached the magic number (in this case, let's do the total number of images, so that the magic number signals when all of them have been changed to GIFs: AKA, `imgSources.length`). Our array will just be count, the state that function is dependent on! Here's what that will look like:
 ```js
 import React, { useState, useEffect } from 'react'
