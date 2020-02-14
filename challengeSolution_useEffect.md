@@ -7,7 +7,8 @@ Warning: spoilers ahead for the FirstReactLab challenge!
 [Creating a Counter State](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/challengesolution.md#creating-a-counter-state")\
 [Counter Value Functions](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/challengesolution.md#counter-value-functions)\
 [Edit Click Handler Function](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/challengesolution.md#edit-click-handler-function)\
-[Adding the Message](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/challengesolution.md#adding-the-message)\
+[Creating a Message State](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/challengesolution.md#creating-a-message-state)\
+[Build useEffect](https://github.com/learninglab-dev/ll-first-reactLab/blob/master/challengesolution.md#build-useeffect)\
 ​
 ### Creating a Counter State
 This challenge asks us to keep track of the number of GIFs we're displaying using a counter. To solve this task, we can put our new knowledge of state to use by creating a state variable for our counter!
@@ -33,19 +34,19 @@ To implement our counter, we're going to want to use the same `useState` syntax 
   ​
   export default function App() {
 +   const [count, setCount] = useState(0)
-    const imgToGIFs = imgSources.map((urls, i) => {
-      return <Switch img={urls.img} GIF={urls.GIF} alt={i} key={i} />
+    const imgToGifs = imgSources.map((urls, i) => {
+      return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} />
     })
     return (
       <Layout>
-        {imgToGIFs}
+        {imgToGifs}
       </Layout>
     )
   }
 ```
 Note that we added `useState` to the collection of things we're importing from the React library in line 1!
 ​
-Also, note that our counter state is a number initialized at zero (`useState(0)`), which we know is how many GIFs are showing when a user first loads our app--none! Next we need functions that allow us to increment and decrement this counter. We'll create these in our next step!
+Also, note that our counter state is a number initialized at zero (`useState(0)`), which we know is how many gifs are showing when a user first loads our app--none! Next we need functions that allow us to increment and decrement this counter. We'll create these in our next step!
 ​
 ### Counter Value Functions
 Now that we have a counter state that we're keeping track of, we can implement a function that will increment it as images are changed to GIFs and vice versa.
@@ -68,37 +69,37 @@ export default function App() {
 + const decrement = () -> {
 +   setCount(count - 1)
 + }
-  const imgToGIFs = imgSources.map((urls, i) => {
-    return <Switch img={urls.img} GIF={urls.GIF} alt={i} key={i} />
+  const imgToGifs = imgSources.map((urls, i) => {
+    return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} />
   })
   return (
     <Layout>
-      {imgToGIFs}
+      {imgToGifs}
     </Layout>
   )
 }
 ```
 This step isn't done yet, though. Now that we have `increment` and `decrement`, we need to pass them down to `Switch` as props and call them in the appropriate click handlers. Recall from the Walkthrough that, in order to pass a prop, we need to include it in the return statement that includes our `Switch` component. That's going to look like this:
 ```diff
-const imgToGIFs = imgSources.map((urls, i) => {
-+ return <Switch img={urls.img} GIF={urls.GIF} alt={i} key={i} increment={increment} decrement={decrement} />
+const imgToGifs = imgSources.map((urls, i) => {
++ return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} increment={increment} decrement={decrement} />
 })
 ​
 ```
-
 ### Edit Click Handler Function
+​
 Now, move over to `Switch.js`. Here we'll call `increment` and `decrement` as our `onClick` functions, so that we update our counter only when the user clicks on an image. For this challenge, it's helpful to use the conditional rendering approach for the `return`—although it's clunkier than packing the conditional into the definition of `src`, it'll help us see where exactly to call our `increment` and `decrement` functions. Before we even add the functions, let's remind ourselves what that version of `Switch` looks like:
 ```js
 import React, { useState } from 'react'
 import Img from './Img'
 ​
 export default function Switch(props) {
-  const { img, GIF, alt } = props
+  const { img, gif, alt } = props
   const [showImg, setShowImg] = useState(true)
   if (showImg) {
     return <Img src={img} alt={alt} onClick={() => setShowImg(false)}/>
   } else {
-    return <Img src={GIF} alt={alt} onClick={() => setShowImg(true)}/>
+    return <Img src={gif} alt={alt} onClick={() => setShowImg(true)}/>
   }
 }
 ```
@@ -108,7 +109,7 @@ Now let's add a couple of minor things we know we'll need. First, let's add `inc
   import Img from './Img'
   ​
   export default function Switch(props) {
-+   const { img, GIF, alt, increment, decrement } = props
++   const { img, gif, alt, increment, decrement } = props
     const [showImg, setShowImg] = useState(true)
     if (showImg) {
       return <Img
@@ -120,7 +121,7 @@ Now let's add a couple of minor things we know we'll need. First, let's add `inc
               />
     } else {
       return <Img
-                src={GIF}
+                src={gif}
                 alt={alt}
 +               onClick={() => {
 +                 setShowImg(true)
@@ -135,7 +136,7 @@ Now we want to call our new functions after we set `showImg` to a GIF (false) or
   import Img from './Img'
   ​
   export default function Switch(props) {
-+   const { img, GIF, alt, increment, decrement } = props
++   const { img, gif, alt, increment, decrement } = props
     const [showImg, setShowImg] = useState(true)
     if (showImg) {
       return <Img
@@ -148,7 +149,7 @@ Now we want to call our new functions after we set `showImg` to a GIF (false) or
               />
     } else {
       return <Img
-                src={GIF}
+                src={gif}
                 alt={alt}
                 onClick={() => {
                   setShowImg(true)
@@ -161,50 +162,72 @@ Now we want to call our new functions after we set `showImg` to a GIF (false) or
 We've done a lot here, so now would be a good time to check over in your browser to verify that everything is working. You'll want to add a `console.log()` somewhere, so you can output the value of `count` The easiest place to do this is probably just at the top inside `App`. Once you've got that log, go ahead and test your app. If all went well, and your counter is counting, it's time to tackle the secret message portion of this challenge!
 ​
 ### Adding the Message
-The ultimate goal of this challenge is to have a "secret" message pop up when we reach a magic number of GIFs on display. To do that, we need to add one more thing to `App`:
-```diff
+The ultimate goal of this challenge is to have a "secret" message pop up when we reach a magic number of GIFs on display. One way to make that happen is to make our message a state variable, where we can set it as whatever string we want once the counter gets to a certain value. That's where `useEffect` will come in—but first, let's add our message state to App.js.
+​
+```js
 export default function App() {
   const [count, setCount] = useState(0)
-+ const message = count === 3 ? '[YOUR SECRET MESSAGE]' : ''
+  const [message, setMessage] = useState("")
   const increment = () => {
     setCount(count + 1)
   }
   const decrement = () => {
     setCount(count - 1)
   }  
-  const imgToGIFs = imgSources.map((urls, i) => {
-    return <Switch img={urls.img} GIF={urls.GIF} alt={i} key={i} increment={increment} decrement={decrement} />
+  //usEffect function
+  const imgToGifs = imgSources.map((urls, i) => {
+    return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} increment={increment} decrement={decrement} />
   })
 ​
   return (
     <Layout>
-      {imgToGIFs}
+      {imgToGifs}
       <h2>{message}</h2>
     </Layout>
   )
 }
 ```
-Here we've added the message in a very simple way. We defined a variable, `message` conditionally. We're returning it on every render, but most of the time it's an empty string, so the user sees nothing.  If we didn't want to see an empty `<h2>` in our html, we could instead conditionally render the `<h2>`. To do this we, don't actually need `message` at all:
-```diff
+In addition to the new const with our message state established as a string, we've also added an `<h2>` tag in our layout where the message will go once the counter has reached the magic number & our `useEffect` function changes the state of the message to whatever string we choose. Let's move on to building our `useEffect` function so that we can see the message state in action!
+​
+### Build useEffect
+Hopefully you've read the documentation for `useEffect` by now, but as a refresher there are two parameters required by `useEffect`: a function, and an array whose changes `useEffect` is keeping track of. Our function here will be a conditional checking whether count has reached the magic number (in this case, let's do the total number of images, so that the magic number signals when all of them have been changed to GIFs: AKA, `imgSources.length`). Our array will just be count, the state that function is dependent on! Here's what that will look like:
+```js
+import React, { useState, useEffect } from 'react'
+import Layout from './Layout'
+import Switch from './Switch'
+import imgSources from './data'
+​
 export default function App() {
   const [count, setCount] = useState(0)
-- const message = count === 3 ? '[YOUR SECRET MESSAGE]' : ''
+  const [message, setMessage] = useState("")
   const increment = () => {
     setCount(count + 1)
   }
   const decrement = () => {
     setCount(count - 1)
   }  
-  const imgToGIFs = imgSources.map((urls, i) => {
-    return <Switch img={urls.img} GIF={urls.GIF} alt={i} key={i} increment={increment} decrement={decrement} />
+  useEffect(() => {
+    if (count === imgSources.length) {
+      setMessage("hey, you have 3 GIFs!")
+    }
+    else {
+      setMessage("")
+    }
+  }, [count]
+​
+  )
+  const imgToGifs = imgSources.map((urls, i) => {
+    return <Switch img={urls.img} gif={urls.gif} alt={i} key={i} increment={increment} decrement={decrement} />
   })
 ​
   return (
     <Layout>
-      {imgToGIFs}
-+     {count === 3 && <h2>[YOUR SECRET MESSAGE]</h2>}
+      {imgToGifs}
+      <h2>{message}</h2>
     </Layout>
   )
 }
 ```
-And that's it! ​Go to `localhost:3000` and click until you have 3 GIFs. When you've done that, you should be able to see the secret message! Challenge: completed!
+Note that we've also included `useEffect` in our list of things to be imported from the React library—without that, your app won't work!
+​
+Go to `localhost:3000` and test this code by changing all of the images to GIFs. When you've done that, you should be able to see the secret message! Challenge: completed!
