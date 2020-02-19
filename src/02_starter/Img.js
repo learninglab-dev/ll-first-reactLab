@@ -1,13 +1,11 @@
 //a component that displays an image goes here
 import React from 'react'
+import Button from './Button'
 
 export default function Image(props) {
-
-  // props = {
-  //   url: 'url goes here',
-  //   test: 'test',
-  //   another: 'another'
-  // }
-
-  return <img src={props.url} alt='cute kitten' width='300px'/>
+  return (
+    <Button onClick={props.onClick}>
+      <img src={props.url} alt={props.alt} width='300px'/>
+    </Button>
+  )
 }
